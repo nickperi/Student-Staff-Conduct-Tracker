@@ -1,0 +1,52 @@
+{% extends "layout.html" %}
+{% block title %}Upvote Student{% endblock %}
+{% block page %}Upvote Student{% endblock %}
+
+{{ super() }}
+
+{% block content %}
+    <div class="row">
+        <p>
+            This is table is renderd on the Server. Flask gets the data from the database and uses jinja templates to dyanmically render this page when a request is sent to <a href="/users">/users</a>.
+        </p>
+    </div>
+
+    <div class="row">
+      <form class="col s12" method="POST" action="/upvotes">
+        
+        <div class="row">
+
+          <div class="input-field col s6">
+            <input placeholder="Student ID" name="studentid" type="number" class="validate">
+            <label for="studentid">Student ID</label>
+          </div>
+      
+        <div class="row">
+          <div class="input-field col s12">
+            <button class="btn waves-effect waves-light right purple" type="submit" name="action">Submit</button>
+          </div>
+        </div> 
+
+      </form>
+    </div>
+
+    <div class="row">
+      <table>
+        <thead>
+          <tr>
+            <th>Upvote ID</th><th>Staff ID</th><th>Student ID</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for upvote in upvotes %}
+            <tr>
+                <td>{{upvote.id}}</td>
+                <td>{{upvote.staffid}}</td>
+                <td>{{upvote.studentid}}</td>
+            </tr>
+          {% endfor %}
+        <tbody>
+      </table>
+    </div>
+
+{% endblock %}
