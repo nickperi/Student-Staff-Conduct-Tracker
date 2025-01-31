@@ -31,11 +31,13 @@ def identify_page():
 def login_action():
     data = request.form
     token = login(data['username'], data['password'])
-    response = redirect(request.referrer)
+    response = redirect('users.html?token={token}')
     if not token:
         flash('Bad username or password given'), 401
+        response = redirect('users.html')
     else:
         flash('Login Successful')
+        response = redirect('users.html?token={token}')
         set_access_cookies(response, token) 
     return response
 
