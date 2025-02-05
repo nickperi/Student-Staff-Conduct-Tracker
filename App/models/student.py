@@ -9,6 +9,7 @@ class Student(User):
     username =  db.Column(db.String, nullable=False, unique=True)
     email = db.Column(db.String(120), nullable=False)
     num_upvotes = db.Column(db.Integer, default=0)
+    upvote_list = db.relationship('Upvote', backref='student', lazy=True)
 
     __mapper_args__ = {
         'polymorphic_identity': 'student',
@@ -19,6 +20,10 @@ class Student(User):
         self.username = username
         self.set_password(password)
         self.email = email
+
+    def staff_list(self):
+        upvotes = Upvote.query.filter_by(studentid=self.id)
+
 
 
     def get_json(self):
