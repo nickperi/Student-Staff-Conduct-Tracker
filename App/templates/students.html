@@ -44,7 +44,7 @@
       <table>
         <thead>
           <tr>
-            <th>Student ID</th><th>Username</th><th>Email</th><th>Upvotes Received</th>
+            <th>Student ID</th><th>Username</th><th>Email</th><th>Upvotes Received</th><th>Staff Upvoted By</th>
           </tr>
         </thead>
         <tbody>
@@ -54,6 +54,15 @@
                 <td>{{student.username}}</td>
                 <td>{{student.email}}</td>
                 <td>{{student.num_upvotes}}</td>
+
+                <td>
+                  <ul>
+                  {% for upvote in student.upvote_list %}
+                    <li>{{upvote.staff_name}}</li>
+                  {% endfor %}
+                  </ul>
+                </td>
+
             </tr>
           {% endfor %}
         <tbody>

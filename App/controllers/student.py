@@ -9,10 +9,17 @@ def create_student(username, password, email):
     return newstudent
 
 def update_upvotes(id): 
+    upvote_list = []
     student = get_student(id)
 
     if student:
-        student.num_upvotes = Upvote.query.filter_by(studentid=id).count()
+        upvotes = Upvote.query.filter_by(studentid=id)
+        student.num_upvotes = upvotes.count()
+        
+        for upvote in upvotes:
+            upvote_list.append(upvote)
+        student.upvote_list = upvote_list
+
         db.session.add(student)
         return db.session.commit()
     return None

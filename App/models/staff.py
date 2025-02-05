@@ -10,6 +10,7 @@ class Staff(User):
     username =  db.Column(db.String, nullable=False, unique=True)
     email = db.Column(db.String(120), nullable=False)
     upvotes_made = db.Column(db.Integer, default=0)
+    upvote_list = db.relationship('Upvote', backref='staff', lazy=True)
 
     __mapper_args__ = {
         'polymorphic_identity': 'staff'

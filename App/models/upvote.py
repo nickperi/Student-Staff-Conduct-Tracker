@@ -6,6 +6,8 @@ class Upvote(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     staffid = db.Column(db.Integer, db.ForeignKey('staff.id'), nullable=False)
     studentid = db.Column(db.Integer, db.ForeignKey('student.id'), nullable=False)
+    staff_name = db.Column(db.String)
+    student_name = db.Column(db.String)
 
     def __init__(self, staffid, studentid):
         self.studentid = studentid
