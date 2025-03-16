@@ -8,6 +8,7 @@ from App.controllers import (
     create_upvote,
     get_all_upvotes,
     get_all_upvotes_json,
+    get_all_students,
     jwt_required
 )
 
@@ -16,7 +17,8 @@ upvote_views = Blueprint('upvote_views', __name__, template_folder='../templates
 @upvote_views.route('/upvotes', methods=['GET'])
 def get_upvote_page():
     upvotes = get_all_upvotes()
-    return render_template('upvotes.html', upvotes=upvotes)
+    students = get_all_students()
+    return render_template('upvotes.html', upvotes=upvotes, students=students)
 
 @upvote_views.route('/api/upvotes', methods=['GET'])
 def get_upvotes_action():
