@@ -1,5 +1,6 @@
 from App.models.student import Student
 from App.models.upvote import Upvote
+from App.models.downvote import Downvote
 from App.database import db
 
 def create_student(username, password, email):
@@ -9,17 +10,12 @@ def create_student(username, password, email):
     return newstudent
 
 def update_upvotes(id): 
-    upvote_list = []
     student = get_student(id)
 
     if student:
-        upvotes = Upvote.query.filter_by(studentid=id)
-        student.num_upvotes = upvotes.count()
-        
-        for upvote in upvotes:
-            upvote_list.append(upvote)
-        student.upvote_list = upvote_list
-
+        upvotes = Upvote.query.filter_by(studentid=id).count()
+        downvotes = Downvote.query.filter_by(studentid=id).count()
+        student.score = (upvotes*5) - (downvotes*2)
         db.session.add(student)
         return db.session.commit()
     return None
