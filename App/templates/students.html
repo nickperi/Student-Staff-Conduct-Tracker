@@ -7,7 +7,7 @@
 {% block content %}
     <div class="row">
         <p>
-            This is table is renderd on the Server. Flask gets the data from the database and uses jinja templates to dyanmically render this page when a request is sent to <a href="/students">/students</a>.
+            This table is rendered on the Server. Flask gets the data from the database and uses jinja templates to dyanmically render this page when a request is sent to <a href="/students">/students</a>.
         </p>
     </div>
 
@@ -44,7 +44,7 @@
       <table>
         <thead>
           <tr>
-            <th>Student ID</th><th>Username</th><th>Email</th><th>Upvotes Received</th><th>Staff Upvoted By</th>
+            <th>Student ID</th><th>Username</th><th>Email</th><th>Score</th>
           </tr>
         </thead>
         <tbody>
@@ -53,16 +53,7 @@
                 <td>{{student.id}}</td>
                 <td>{{student.username}}</td>
                 <td>{{student.email}}</td>
-                <td>{{student.num_upvotes}}</td>
-
-                <td>
-                  <ul>
-                  {% for upvote in student.upvote_list %}
-                    <li>{{upvote.staff_name}}</li>
-                  {% endfor %}
-                  </ul>
-                </td>
-
+                <td>{{student.score}}</td>
             </tr>
           {% endfor %}
         <tbody>
