@@ -29,10 +29,10 @@ def setup_jwt(app):
         identity = jwt_data["sub"]  # This is the username
         print("User Identity: " + identity)
         return User.query.filter_by(username=identity).one_or_none()
+      
     return jwt
 
 
-# Context processor to make 'is_authenticated' available to all templates
 def add_auth_context(app):
     @app.context_processor
     def inject_user():
