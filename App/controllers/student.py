@@ -32,8 +32,8 @@ def get_student(id):
 
 def get_all_students():
     students = Student.query.all()
-    for student in students:
-        update_upvotes(student.id)
+    #for student in students:
+        #update_upvotes(student.id)
     return students
 
 def get_all_students_json():
