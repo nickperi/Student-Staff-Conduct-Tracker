@@ -9,7 +9,7 @@ class Student(User):
     username =  db.Column(db.String, nullable=False, unique=True)
     email = db.Column(db.String(120), nullable=False)
     num_upvotes = db.Column(db.Integer, default=0)
-    upvote_list = db.relationship('Upvote', backref='student', lazy=True)
+    score = db.relationship('Upvote', backref='student', lazy=True)
 
     __mapper_args__ = {
         'polymorphic_identity': 'student',
@@ -31,7 +31,7 @@ class Student(User):
             'id': self.id,
             'username': self.username,
             'email': self.email,
-            'upvotes received': self.num_upvotes
+            'score': self.score
         }
     
     def get_user_type(self):
