@@ -20,14 +20,9 @@
             <label for="studentid">Select Student: </label>
             <br><br>
             <select name="studentid" id="student">
-                {% if students %}
-                  {% for student in students %}
-                  <option value={{student.id}}>{{student.id}} {{student.username}}</option>
-                  {% endfor %}
-
-                {%else%}
-                    <p>No students to upvote</p>
-                {% endif %}
+              {% for student in students %}
+              <option value={{student.id}}>{{student.id}} {{student.username}}</option>
+              {% endfor %}
             </select>
 
           </div>
@@ -50,15 +45,13 @@
           </tr>
         </thead>
         <tbody>
-            {% if upvotes %}
-                {% for upvote in upvotes %}
-                    <tr>
-                        <td>{{upvote.id}}</td>
-                        <td>{{upvote.staffid}}</td>
-                        <td>{{upvote.studentid}}</td>
-                    </tr>
-                {% endfor %}
-            {% endif %}
+          {% for upvote in upvotes %}
+            <tr>
+                <td>{{upvote.id}}</td>
+                <td>{{upvote.staffid}}</td>
+                <td>{{upvote.studentid}}</td>
+            </tr>
+          {% endfor %}
         <tbody>
       </table>
     </div>

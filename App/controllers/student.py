@@ -14,15 +14,8 @@ def update_upvotes(id):
 
     if student:
         upvotes = Upvote.query.filter_by(studentid=id).count()
-        #downvotes = Downvote.query.filter_by(studentid=id).count()
-        
-        #if not upvotes:
-            #upvotes = 0
-
-        #if not downvotes:
-        #    downvotes = 0
-            
-        student.num_upvotes = upvotes*5
+        downvotes = Downvote.query.filter_by(studentid=id).count()
+        student.score = (upvotes*5) - (downvotes*2)
         db.session.add(student)
         return db.session.commit()
     return None
@@ -32,8 +25,8 @@ def get_student(id):
 
 def get_all_students():
     students = Student.query.all()
-    #for student in students:
-        #update_upvotes(student.id)
+    for student in students:
+        update_upvotes(student.id)
     return students
 
 def get_all_students_json():
