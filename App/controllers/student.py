@@ -22,7 +22,7 @@ def update_upvotes(id):
         #if not downvotes:
         #    downvotes = 0
             
-        student.score = upvotes*5
+        student.num_upvotes = upvotes*5
         db.session.add(student)
         return db.session.commit()
     return None
