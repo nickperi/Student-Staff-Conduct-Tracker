@@ -16,13 +16,13 @@ def update_upvotes(id):
         upvotes = Upvote.query.filter_by(studentid=id).count()
         #downvotes = Downvote.query.filter_by(studentid=id).count()
         
-        if not upvotes:
-            upvotes = 0
+        #if not upvotes:
+            #upvotes = 0
 
         #if not downvotes:
         #    downvotes = 0
             
-        student.score = (upvotes*5)
+        student.score = upvotes*5
         db.session.add(student)
         return db.session.commit()
     return None
