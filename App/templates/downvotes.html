@@ -1,0 +1,53 @@
+{% extends "layout.html" %}
+{% block title %}Downvote Student{% endblock %}
+{% block page %}Downvote Student{% endblock %}
+
+{{ super() }}
+
+{% block content %}
+    <div class="row">
+
+        <form class="col s12" method="POST" action="/downvotes">
+            <div class="row">
+             <div class="input-field col s6">
+                <label for="studentid">Select Student: </label>
+                <br><br>
+                <select name="studentid">
+                {% for student in students %}
+                    <option value="{{student.id}}">{{student.id}} {{student.username}}</option>
+                {% endfor %}
+                </select>
+             </div>
+            </div>
+
+            <div class="row">
+                <div class="input-field col s12">
+                    <button class="btn waves-effect waves-light right purple" type="submit" name="action">Downvote</button>
+                </div>
+            </div>
+
+            <div class="row">
+                <table>
+                    <thead>
+                        <tr> 
+                            <th>Upvote ID</th>
+                            <th>Staff ID</th>
+                            <th>Student ID</th> 
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        {% for downvote in downvotes %}
+                            <tr> 
+                                <td>{{downvote.id}}</td> 
+                                <td>{{downvote.staffid}}</td> 
+                                <td>{{downvote.studentid}}</td> 
+                            </tr>
+                        {% endfor %}
+                    <tbody>
+                </table>
+            </div>
+        </form>
+
+    </div>
+{% endblock %}
