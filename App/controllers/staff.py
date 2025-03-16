@@ -1,6 +1,7 @@
 from App.models.staff import Staff
 from App.models.student import Student
 from App.models.upvote import Upvote
+from App.models.downvote import Downvote
 from App.database import db
 from App.controllers import update_upvotes
 
@@ -14,26 +15,28 @@ def create_staff(username, password, email):
 def create_upvote(id, studentid):
     staff = Staff.query.filter_by(id=id).first()
     student = Student.query.filter_by(id=studentid).first()
-    student_list = []
 
     if staff and student:
         new_upvote = Upvote(staffid=id, studentid=studentid)
-        new_upvote.staff_name = staff.username
-        new_upvote.student_name = student.username
         db.session.add(new_upvote)
         db.session.commit()
-        
         staff.upvotes_made += 1
-
-        upvotes_made = Upvote.query.filter_by(staffid=staff.id)
-        for upvote in upvotes_made:
-            student_list.append(upvote)
-        staff.upvotes_list = student_list
-
         update_upvotes(id=studentid)
         db.session.add(staff)
         return db.session.commit()
-        
+    return None
+
+
+def create_downvote(id, studentid):
+    staff = Staff.query.filter_by(id=id).first()
+    student = Student.query.filter_by(id=studentid).first()
+
+    if staff and student:
+        new_downvote = Downvote(staffid=id, studentid=studentid)
+        db.session.add(new_downvote)
+        db.session.commit()
+        update_upvotes(id=studentid)
+        return db.session.commit()
     return None
 
 
