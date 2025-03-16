@@ -37,13 +37,17 @@
                     </thead>
 
                     <tbody>
-                        {% for downvote in downvotes %}
-                            <tr> 
-                                <td>{{downvote.id}}</td> 
-                                <td>{{downvote.staffid}}</td> 
-                                <td>{{downvote.studentid}}</td> 
-                            </tr>
-                        {% endfor %}
+                        {% if downvotes %}
+                            {% for downvote in downvotes %}
+                                <tr> 
+                                    <td>{{downvote.id}}</td> 
+                                    <td>{{downvote.staffid}}</td> 
+                                    <td>{{downvote.studentid}}</td> 
+                                </tr>
+                            {% endfor %}
+                        {% else %}
+                            <p>No downvotes made yet.</p>
+                        {% endif %}
                     <tbody>
                 </table>
             </div>
