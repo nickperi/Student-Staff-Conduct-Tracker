@@ -4,6 +4,7 @@ from App.models.upvote import Upvote
 from App.models.downvote import Downvote
 from App.database import db
 from App.controllers import update_upvotes
+from App.controllers import get_student
 
 def create_staff(username, password, email):
     newstaff = Staff(username=username, password=password, email=email)
@@ -15,13 +16,22 @@ def create_staff(username, password, email):
 def create_upvote(id, studentid):
     staff = Staff.query.filter_by(id=id).first()
     student = Student.query.filter_by(id=studentid).first()
+    students_upvoted = Upvote.query.filter_by(staffid=id)
+    upvotes_made = ""
+    i = 1
 
     if staff and student:
         new_upvote = Upvote(staffid=id, studentid=studentid)
         db.session.add(new_upvote)
         db.session.commit()
-        staff.upvotes_made += 1
+
+        if students_upvoted:
+            for student_upvoted in students_upvoted:
+                upvotes_made += i + " " + get_student(student_upvoted.studentid).username + "\n"
+                i += 1
+
         update_upvotes(id=studentid)
+        staff.upvotes_made = upvotes_made
         db.session.add(staff)
         return db.session.commit()
     return None
@@ -30,12 +40,22 @@ def create_upvote(id, studentid):
 def create_downvote(id, studentid):
     staff = Staff.query.filter_by(id=id).first()
     student = Student.query.filter_by(id=studentid).first()
+    students_downvoted = Downvote.query.filter_by(staffid=id)
+    downvotes_made = ""
+    i = 1
 
     if staff and student:
         new_downvote = Downvote(staffid=id, studentid=studentid)
         db.session.add(new_downvote)
         db.session.commit()
+
+        if students_downvoted:
+            for student_downvoted in students_downvoted:
+                downvotes_made += i + " " + get_student(student_downvoted.studentid).username + "\n"
+                i += 1
+
         update_upvotes(id=studentid)
+        staff.downvotes_made = downvotes_made
         return db.session.commit()
     return None
 
