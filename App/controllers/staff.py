@@ -47,7 +47,7 @@ def create_upvote(id, studentid):
         db.session.add(new_upvote)
         db.session.commit()
         update_upvotes(id=studentid)
-        staff.upvotes_made = get_staff_upvotes()
+        staff.upvotes_made = get_staff_upvotes(id=id)
         db.session.add(staff)
         return db.session.commit()
     return None
@@ -62,7 +62,7 @@ def create_downvote(id, studentid):
         db.session.add(new_downvote)
         db.session.commit()
         update_upvotes(id=studentid)
-        staff.downvotes_made = get_staff_downvotes()
+        staff.downvotes_made = get_staff_downvotes(id=id)
         return db.session.commit()
     return None
 
