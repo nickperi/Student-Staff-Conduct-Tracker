@@ -29,12 +29,12 @@ def get_staff_downvotes(id):
     students_downvoted = Downvote.query.filter_by(staffid=id)
     downvotes_made = ""
     i = 1
-
-   if students_downvoted:
-       for student_downvoted in students_downvoted:
-           downvotes_made += i + " " + get_student(student_downvoted.studentid).username + "\n"
-           i += 1
-           
+    
+    if students_downvoted:
+        for student_downvoted in students_downvoted:
+            downvotes_made += i + " " + get_student(student_downvoted.studentid).username + "\n"
+            i += 1
+            
     return downvotes_made
     
 
