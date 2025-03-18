@@ -44,7 +44,7 @@
       <table>
         <thead>
           <tr>
-            <th>Staff ID</th><th>Username</th><th>Email</th><th>Upvotes Made</th>
+            <th>Staff ID</th><th>Username</th><th>Email</th><th>Upvotes Made</th><th>Downvotes Made</th>
           </tr>
         </thead>
         <tbody>
@@ -54,6 +54,7 @@
                 <td>{{member.username}}</td>
                 <td>{{member.email}}</td>
                 <td>{{member.upvotes_made}}</td>
+                <td>{{member.downvotes_made}}</td>
             </tr>
           {% endfor %}
         <tbody>
