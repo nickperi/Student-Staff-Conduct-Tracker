@@ -19,7 +19,7 @@ def get_staff_upvotes(id):
 
     if students_upvoted:
         for student_upvoted in students_upvoted:
-            upvotes_made += i + " " + get_student(student_upvoted.studentid).username + "\n"
+            upvotes_made += str(i) + " " + get_student(student_upvoted.studentid).username + "\n"
             i += 1
             
     return upvotes_made
@@ -32,7 +32,7 @@ def get_staff_downvotes(id):
     
     if students_downvoted:
         for student_downvoted in students_downvoted:
-            downvotes_made += i + " " + get_student(student_downvoted.studentid).username + "\n"
+            downvotes_made += str(i) + " " + get_student(student_downvoted.studentid).username + "\n"
             i += 1
             
     return downvotes_made
