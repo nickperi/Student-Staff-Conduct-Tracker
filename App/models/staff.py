@@ -9,7 +9,9 @@ class Staff(User):
     id = db.Column(db.Integer, db.ForeignKey('user.id'), primary_key=True)
     username =  db.Column(db.String, nullable=False, unique=True)
     email = db.Column(db.String(120), nullable=False)
-    upvotes_made = db.Column(db.Integer, default=0)
+    upvotes_made = db.Column(db.String)
+    downvotes_made = db.Column(db.String)
+
 
     __mapper_args__ = {
         'polymorphic_identity': 'staff'
@@ -27,7 +29,8 @@ class Staff(User):
             'id': self.id,
             'username': self.username,
             'email': self.email,
-            'upvotes made': self.upvotes_made
+            'upvotes made': self.upvotes_made,
+            'downvotes made': self.downvotes_made
         }
     
     def get_user_type(self):
