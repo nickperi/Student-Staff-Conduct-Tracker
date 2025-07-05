@@ -8,7 +8,7 @@ from App.controllers import (
     create_upvote,
     get_all_upvotes,
     get_all_upvotes_json,
-    get_all_students,
+    get_all_reviews,
     jwt_required
 )
 
@@ -17,8 +17,8 @@ upvote_views = Blueprint('upvote_views', __name__, template_folder='../templates
 @upvote_views.route('/upvotes', methods=['GET'])
 def get_upvote_page():
     upvotes = get_all_upvotes()
-    students = get_all_students()
-    return render_template('upvotes.html', upvotes=upvotes, students=students)
+    reviews = get_all_reviews()
+    return render_template('upvotes.html', upvotes=upvotes, reviews=reviews)
 
 @upvote_views.route('/api/upvotes', methods=['GET'])
 def get_upvotes_action():
@@ -29,13 +29,13 @@ def get_upvotes_action():
 @jwt_required()
 def create_upvote_endpoint():
     data = request.json
-    create_upvote(jwt_current_user.id, data['studentid'])
-    return jsonify({'message': f"staff {jwt_current_user.id} upvoted {data['studentid']}"})
+    create_upvote(jwt_current_user.id, data['reviewid'])
+    return jsonify({'message': f"staff {jwt_current_user.id} upvoted {data['reviewid']}"})
 
 @upvote_views.route('/upvotes', methods=['POST'])
 @jwt_required()
 def create_upvote_action():
     data = request.form
-    flash(f"User {jwt_current_user.id} upvoted {data['studentid']}")
-    create_upvote(jwt_current_user.id, data['studentid'])
+    flash(f"Staff member {jwt_current_user.id} upvoted Review {data['reviewid']}")
+    create_upvote(jwt_current_user.id, data['reviewid'])
     return redirect(url_for('upvote_views.get_upvote_page'))
