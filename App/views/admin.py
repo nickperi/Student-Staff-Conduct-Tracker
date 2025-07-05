@@ -3,7 +3,7 @@ from flask_admin.contrib.sqla import ModelView
 from flask_jwt_extended import jwt_required, verify_jwt_in_request, current_user
 from flask_admin import Admin
 from App.models import db, User, Staff, Student, Upvote, Downvote
-from App.controllers import update_upvotes, get_all_staff
+from App.controllers import update_upvotes, update_downvotes, get_all_staff
 import logging
 
 logger = logging.getLogger(__name__)
@@ -19,7 +19,7 @@ class AdminView(ModelView):
     def inaccessible_callback(self, name, **kwargs):
         # redirect to login page if user doesn't have access
         flash("Login to access admin")
-        return redirect(url_for('index_page', next=request.url))
+        return redirect(url_for('index_views.index_page', next=request.url))
     
 class StaffView(ModelView):
     column_display_pk = True
@@ -54,8 +54,8 @@ class StudentView(ModelView):
 class UpvoteView(ModelView):
     column_display_pk = True
     column_hide_backrefs = False
-    column_list = ('id', 'staffid', 'studentid')
-    form_columns = ('studentid',)
+    column_list = ('id', 'staffid', 'reviewid')
+    form_columns = ('reviewid',)
 
     def create_model(self, form):
         from flask import current_app
@@ -69,15 +69,15 @@ class UpvoteView(ModelView):
 
                 # Ensure current_user.id is assigned to staff_id
                 staff_id = current_user.id  
-                student_id = form.studentid.data  # Get from form input
+                review_id = form.reviewid.data  # Get from form input
 
                 # Manually create the instance and assign required attributes
-                model = self.model(staffid=staff_id, studentid=student_id)
+                model = self.model(staffid=staff_id, reviewid=review_id)
 
                 self.session.add(model)
                 self.session.commit()
 
-                update_upvotes(student_id)  # Recalculate student score
+                update_upvotes(review_id)  # Recalculate student score
                 get_all_staff()
                 db.session.commit()  # Save changes
 
@@ -90,10 +90,10 @@ class UpvoteView(ModelView):
 
 
     def delete_model(self, model):
-        """Override delete to update student score when an upvote is deleted"""
-        studentid = model.studentid  # Assuming Upvote.studentid has a relationship with Student.id
+        """Override delete to update Review when an upvote is deleted"""
+        reviewid = model.reviewid  # Assuming Upvote.reviewid has a relationship with Review.id
         super().delete_model(model)  # Delete the upvote
-        update_upvotes(studentid)  # Recalculate student score
+        update_upvotes(reviewid)  # Recalculate student score
         db.session.commit()  # Save changes
 
 
@@ -110,8 +110,8 @@ class UpvoteView(ModelView):
 class DownvoteView(ModelView):
     column_display_pk = True
     column_hide_backrefs = False
-    column_list = ('id', 'staffid', 'studentid')
-    form_columns = ('studentid',)
+    column_list = ('id', 'staffid', 'reviewid')
+    form_columns = ('reviewid',)
    
     def create_model(self, form):
         from flask import current_app
@@ -125,31 +125,31 @@ class DownvoteView(ModelView):
 
                 # Ensure current_user.id is assigned to staff_id
                 staff_id = current_user.id  
-                student_id = form.studentid.data  # Get from form input
+                review_id = form.reviewid.data  # Get from form input
 
                 # Manually create the instance and assign required attributes
-                model = self.model(staffid=staff_id, studentid=student_id)
+                model = self.model(staffid=staff_id, reviewid=review_id)
 
                 self.session.add(model)
                 self.session.commit()
 
-                update_upvotes(student_id)  # Recalculate student score
+                update_downvotes(review_id)  # Recalculate review downvotes
                 get_all_staff()
                 db.session.commit()  # Save changes
 
-                logger.info(f"Upvote created: {model}")
+                logger.info(f"Downvote created: {model}")
                 return model
             except Exception as e:
                 self.session.rollback()
-                logger.error(f"Error creating upvote: {e}")
+                logger.error(f"Error creating downvote: {e}")
                 return False
 
 
     def delete_model(self, model):
-        """Override delete to update student score when an upvote is deleted"""
-        studentid = model.studentid  # Assuming Upvote.studentid has a relationship with Student.id
-        super().delete_model(model)  # Delete the upvote
-        update_upvotes(studentid)  # Recalculate student score
+        """Override delete to update downvotes when a downvote is deleted"""
+        reviewid = model.reviewid  # Assuming Downvote.reviewid has a relationship with Review.id
+        super().delete_model(model)  # Delete the downvote
+        update_downvotes(reviewid)  # Recalculate review downvotes
         db.session.commit()  # Save changes
 
     @jwt_required()
