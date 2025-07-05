@@ -1,6 +1,7 @@
 from App.models.student import Student
 from App.models.upvote import Upvote
 from App.models.downvote import Downvote
+from App.models.review import Review
 from App.database import db
 
 def create_student(username, password, email):
@@ -9,15 +10,21 @@ def create_student(username, password, email):
     db.session.commit()
     return newstudent
 
-def update_upvotes(id): 
+def update_score(id): 
     student = get_student(id)
+    upvotes = 0
+    downvotes = 0
 
     if student:
-        upvotes = Upvote.query.filter_by(studentid=id).count()
-        downvotes = Downvote.query.filter_by(studentid=id).count()
-        student.score = (upvotes*5) - (downvotes*2)
-        db.session.add(student)
-        return db.session.commit()
+        reviews = Review.query.filter_by(studentid=id)
+
+        if reviews:
+            for review in reviews:
+                upvotes += review.num_upvotes
+                downvotes += review.num_downvotes
+            student.score = (upvotes*5) - (downvotes*2)
+            db.session.add(student)
+            return db.session.commit()
     return None
 
 def get_student(id):
@@ -26,7 +33,7 @@ def get_student(id):
 def get_all_students():
     students = Student.query.all()
     for student in students:
-        update_upvotes(student.id)
+        update_score(student.id)
     return students
 
 def get_all_students_json():
