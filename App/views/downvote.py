@@ -8,7 +8,7 @@ from App.controllers import (
     jwt_required,
     get_all_downvotes,
     get_all_downvotes_json,
-    get_all_students,
+    get_all_reviews,
     create_downvote
 )
 
@@ -17,8 +17,8 @@ downvote_views = Blueprint('downvote_views', __name__, template_folder='../templ
 @downvote_views.route('/downvotes', methods=['GET'])
 def get_downvote_page():
     downvotes = get_all_downvotes()
-    students = get_all_students()
-    return render_template('downvotes.html', downvotes=downvotes, students=students)
+    reviews = get_all_reviews()
+    return render_template('downvotes.html', downvotes=downvotes, reviews=reviews)
 
 @downvote_views.route('/api/downvotes', methods=['GET'])
 def get_downvotes_action():
@@ -29,13 +29,13 @@ def get_downvotes_action():
 @jwt_required()
 def create_downvote_endpoint():
     data = request.json
-    create_downvote(jwt_current_user.id, data['studentid'])
-    return jsonify({'message': f"staff {jwt_current_user.id} downvoted {data['studentid']}"})
+    create_downvote(jwt_current_user.id, data['reviewid'])
+    return jsonify({'message': f"staff {jwt_current_user.id} downvoted {data['reviewid']}"})
 
 @downvote_views.route('/downvotes', methods=['POST'])
 @jwt_required()
 def create_downvote_action():
     data = request.form
-    flash(f"User {jwt_current_user.id} downvoted {data['studentid']}")
-    create_downvote(jwt_current_user.id, data['studentid'])
+    flash(f"Staff member {jwt_current_user.id} downvoted Review {data['reviewid']}")
+    create_downvote(jwt_current_user.id, data['reviewid'])
     return redirect(url_for('downvote_views.get_downvote_page'))
