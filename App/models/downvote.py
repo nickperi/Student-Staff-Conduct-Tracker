@@ -5,15 +5,15 @@ class Downvote(db.Model):
     __tablename__ = "downvote"
     id = db.Column(db.Integer, primary_key=True)
     staffid = db.Column(db.Integer, db.ForeignKey('staff.id'), nullable=False)
-    studentid = db.Column(db.Integer, db.ForeignKey('student.id'), nullable=False)
+    reviewid = db.Column(db.Integer, db.ForeignKey('review.id'), nullable=False)
 
-    def __init__(self, staffid, studentid):
-        self.studentid = studentid
+    def __init__(self, staffid, reviewid):
         self.staffid = staffid
+        self.reviewid = reviewid
 
     def get_json(self):
         return {
             'id': self.id,
             'staff id': self.staffid,
-            'student id': self.studentid
+            'review id': self.reviewid
         }
