@@ -1,6 +1,6 @@
 {% extends "layout.html" %}
-{% block title %}Downvote Student{% endblock %}
-{% block page %}Downvote Student{% endblock %}
+{% block title %}Downvote Review{% endblock %}
+{% block page %}Downvote Review{% endblock %}
 
 {{ super() }}
 
@@ -10,11 +10,11 @@
         <form class="col s12" method="POST" action="/downvotes">
             <div class="row">
              <div class="input-field col s6">
-                <label for="studentid">Select Student: </label>
+                <label for="reviewid">Select Review: </label>
                 <br><br>
-                <select name="studentid">
-                {% for student in students %}
-                    <option value="{{student.id}}">{{student.id}} {{student.username}}</option>
+                <select name="reviewid">
+                {% for review in reviews %}
+                    <option value="{{review.id}}">{{review.id}} {{review.text}}</option>
                 {% endfor %}
                 </select>
              </div>
@@ -30,9 +30,9 @@
                 <table>
                     <thead>
                         <tr> 
-                            <th>Upvote ID</th>
+                            <th>Downvote ID</th>
                             <th>Staff ID</th>
-                            <th>Student ID</th> 
+                            <th>Review ID</th> 
                         </tr>
                     </thead>
 
@@ -41,7 +41,7 @@
                             <tr> 
                                 <td>{{downvote.id}}</td> 
                                 <td>{{downvote.staffid}}</td> 
-                                <td>{{downvote.studentid}}</td> 
+                                <td>{{downvote.reviewid}}</td> 
                             </tr>
                         {% endfor %}
                     <tbody>
