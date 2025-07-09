@@ -1,0 +1,26 @@
+
+  .arrow {
+    font-size: 24px;
+    cursor: pointer;
+    padding: 4px;
+  }
+  .upvote.shaded {
+    color: darkslateblue;
+  }
+  .upvote.unshaded {
+    color: darkslateblue;
+    opacity: 0.5;
+  }
+  .downvote.shaded {
+    color: crimson;
+  }
+  .downvote.unshaded {
+    color: crimson;
+    opacity: 0.5;
+  }
+
+  #nav-mobile {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+  }
