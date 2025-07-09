@@ -7,6 +7,8 @@ class Review(db.Model):
     staffid = db.Column(db.Integer, db.ForeignKey('staff.id'), nullable=False)
     studentid = db.Column(db.Integer, db.ForeignKey('student.id'), nullable=False)
     text = db.Column(db.String(250))
+    upvotes = db.relationship('Upvote', backref='review', lazy='dynamic')
+    downvotes = db.relationship('Downvote', backref='review', lazy='dynamic')
     num_upvotes = db.Column(db.Integer, default=0)
     num_downvotes = db.Column(db.Integer, default=0)
 
@@ -17,9 +19,9 @@ class Review(db.Model):
 
     def get_json(self):
         return {'id': self.id, 
-                'staff id': self.staffid, 
-                'student id': self.studentid, 
-                'review': self.text,
-                'upvotes': self.num_upvotes,
-                'downvotes': self.num_downvotes
+                'staffid': self.staffid, 
+                'studentid': self.studentid, 
+                'text': self.text,
+                'num_upvotes': self.num_upvotes,
+                'num_downvotes': self.num_downvotes
                 }
