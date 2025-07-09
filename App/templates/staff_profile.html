@@ -1,0 +1,28 @@
+{% extends "layout.html" %}
+{% block title %}Hi, {{current_user.username}}{% endblock %}
+{% block page %}Hi, {{current_user.username}}{% endblock %}
+
+{{ super() }}
+
+{% block content %}
+    <div class="row">
+        <p>
+            This table is rendered on the Server. Flask gets the data from the database and uses jinja templates to dynamically render this page when a request is sent to <a href="/users">/users</a>.
+        </p>
+    </div>
+
+    <div class="row">
+    <table>
+        <thead>
+            <tr> <th>Review ID</th> <th>Student ID</th> <th>Comments</th> </tr>
+        </thead>
+
+        {% for review in reviews %}
+        <tbody>
+            <tr> <td>{{review.id}}</td> <td>{{review.studentid}}</td> <td>{{review.text}}</td> </tr>
+        </tbody>
+        {% endfor %}
+    </table>
+    </div>
+    
+{% endblock %}
