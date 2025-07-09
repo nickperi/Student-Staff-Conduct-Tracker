@@ -11,6 +11,9 @@
         </p>
     </div>
 
+    <link rel="stylesheet" href="static/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
     <div class="row">
       <form class="col s12" method="POST" action="/reviews">
         
@@ -43,6 +46,7 @@
     </div>
 
     <div class="row">
+
         <table>
           <thead>
             <tr>
@@ -50,16 +54,79 @@
             </tr>
           </thead>
           <tbody>
+            {{upvotes}}
             {% for review in reviews %}
               <tr>
-                  <td>{{review.id}}</td>
-                  <td>{{review.staffid}}</td>
-                  <td>{{review.studentid}}</td>
-                  <td>{{review.text}}</td>
+                <td>{{review.id}}</td>
+                <td>{{review.staffid}}</td>
+                <td>{{review.studentid}}</td>
+                <td>{{review.text}}</td>
+
+                {% if review.id in upvotes %}
+                    <td>{{review.num_upvotes}}<i id="upvote-arrow-{{review.id}}" class='arrow upvote shaded' onclick="unVote('{{review.id}}')" type="submit" name="action" id="{{review.id}}">▲</i></td>
+                    <td>{{review.num_downvotes}}<i id="downvote-arrow-{{review.id}}" class='arrow downvote unshaded' onclick="downVote('{{review.id}}')" type="submit" name="action" id="{{review.id}}">▽</i></td>
+                {% else %}
+                    <td>{{review.num_upvotes}}<i id="upvote-arrow-{{review.id}}" class='arrow upvote unshaded' onclick="upVote('{{review.id}}')" type="submit" name="action" id="{{review.id}}">△</i></td>
+                    <td>{{review.num_downvotes}}<i id="downvote-arrow-{{review.id}}" class='arrow downvote unshaded' onclick="downVote('{{review.id}}')" type="submit" name="action" id="{{review.id}}">▽</i></td>
+                {% endif %}
+
               </tr>
             {% endfor %}
           <tbody>
         </table>
+
+
+        <script>
+          function upVote(reviewId) {
+            upvoteButton = document.getElementById(`upvote-arrow-${reviewId}`);
+
+                fetch('/upvotes', {
+                  method: 'POST',
+                  headers: {
+                    'Content-Type': 'application/json',
+                  },
+                  body: JSON.stringify({ reviewid: reviewId }),
+                }).then(response => response.json())
+                  .then(data => {
+                    console.log("Received data:", data);  // check what’s coming from the backend
+      
+                  if (data.success) {
+                    console.log("Vote was successful!");
+                    upvoteButton.textContent = '▲';
+                    upvoteButton.classList.toggle('unshaded');
+                    upvoteButton.classList.toggle('shaded');
+                    location.reload();
+
+                  } else {
+                      alert("Vote failed.");
+                  }
+                });
+          }
+
+          function unVote(reviewId) {
+            upvoteButton = document.getElementById(`upvote-arrow-${reviewId}`);
+
+            fetch(`/upvotes/${reviewId}`, {
+                  method: 'DELETE',
+                  headers: {
+                    'Content-Type': 'application/json',
+                  },
+                }).then(response => response.json())
+                  .then(data => {
+      
+                  if (data.success) {
+                    upvoteButton.textContent = '△';
+                    upvoteButton.classList.toggle('shaded');
+                    upvoteButton.classList.toggle('unshaded');
+                    location.reload();
+
+                  } else {
+                      alert("Unvote failed.");
+                  }
+                });
+          }
+        </script>
+
       </div>
   
   {% endblock %}
