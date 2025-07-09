@@ -9,8 +9,9 @@ class Staff(User):
     id = db.Column(db.Integer, db.ForeignKey('user.id'), primary_key=True)
     username =  db.Column(db.String, nullable=False, unique=True)
     email = db.Column(db.String(120), nullable=False)
-    upvotes_made = db.Column(db.String)
-    downvotes_made = db.Column(db.String)
+    reviews_logged = db.relationship('Review', backref='staff', lazy='dynamic')
+    upvotes_made = db.relationship('Upvote', backref='staff', lazy='dynamic')
+    downvotes_made = db.relationship('Downvote', backref='staff', lazy='dynamic')
 
 
     __mapper_args__ = {
