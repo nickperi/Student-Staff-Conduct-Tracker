@@ -4,15 +4,17 @@ from flask_login import current_user, login_required
 
 from.index import index_views
 
-from App.controllers import (log_review, get_all_reviews, get_all_reviews_json, get_all_students, jwt_required)
+from App.controllers import (log_review, get_all_reviews, get_all_reviews_json, get_my_upvotes, get_all_students, jwt_required)
 
 review_views = Blueprint('review_views', __name__, template_folder='../templates')
 
 @review_views.route('/reviews', methods=['GET'])
+@jwt_required()
 def get_review_page():
     reviews = get_all_reviews()
     students = get_all_students()
-    return render_template('reviews.html', reviews=reviews, students=students)
+    upvotes = get_my_upvotes(jwt_current_user.id)
+    return render_template('reviews.html', reviews=reviews, upvotes=upvotes, students=students)
 
 @review_views.route('/api/reviews', methods=['GET'])
 def get_review_action():
