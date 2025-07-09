@@ -15,31 +15,6 @@ def create_staff(username, password, email):
     db.session.add(newstaff)
     db.session.commit()
     return newstaff
-
-def get_staff_upvotes(id):
-    reviews_upvoted = Upvote.query.filter_by(staffid=id)
-    upvotes_made = ""
-    i = 1
-
-    if reviews_upvoted:
-        for review_upvoted in reviews_upvoted:
-            upvotes_made += str(i) + " " + get_student(get_review(review_upvoted.reviewid).studentid).username + "\n"
-            i += 1
-            
-    return upvotes_made
-    
-
-def get_staff_downvotes(id):
-    reviews_downvoted = Downvote.query.filter_by(staffid=id)
-    downvotes_made = ""
-    i = 1
-    
-    if reviews_downvoted:
-        for review_downvoted in reviews_downvoted:
-            downvotes_made += str(i) + " " + get_student(get_review(review_downvoted.reviewid).studentid).username + "\n"
-            i += 1
-            
-    return downvotes_made
     
 def log_review(id, studentid, text):
     staff = Staff.query.filter_by(id=id).first()
@@ -54,17 +29,26 @@ def log_review(id, studentid, text):
 
 
 def create_upvote(id, reviewid):
-    staff = Staff.query.filter_by(id=id).first()
     review = Review.query.filter_by(id=reviewid).first()
-   
-    if staff and review:
+    existing_upvote = Upvote.query.filter_by(staffid=id, reviewid=reviewid).first()
+
+    if not existing_upvote:
         new_upvote = Upvote(staffid=id, reviewid=reviewid)
         db.session.add(new_upvote)
+        review.num_upvotes += 1
         db.session.commit()
-        update_upvotes(id=reviewid)
-        staff.upvotes_made = get_staff_upvotes(id=id)
-        db.session.add(staff)
-        return db.session.commit()
+        return new_upvote
+    return None
+
+def remove_upvote(id, reviewid):
+    upvote = Upvote.query.filter_by(staffid=id, reviewid=reviewid).first()
+    review = Review.query.filter_by(id=reviewid).first()
+
+    if upvote and review:
+        db.session.delete(upvote)
+        review.num_upvotes -= 1
+        db.session.commit()
+        return upvote
     return None
 
 
@@ -75,9 +59,7 @@ def create_downvote(id, reviewid):
     if staff and review:
         new_downvote = Downvote(staffid=id, reviewid=reviewid)
         db.session.add(new_downvote)
-        db.session.commit()
-        update_downvotes(id=reviewid)
-        staff.downvotes_made = get_staff_downvotes(id=id)
+        review.num_downvotes += 1
         return db.session.commit()
     return None
 
@@ -85,13 +67,12 @@ def create_downvote(id, reviewid):
 def get_staff(id):
     return Staff.query.get(id)
 
+def get_staff_reviews(id):
+    staff = get_staff(id)
+    return staff.reviews_logged.order_by(Review.id.desc()).all()
+
 def get_all_staff():
     staff = Staff.query.all()
-
-    for s in staff:
-        s.upvotes_made = get_staff_upvotes(s.id)
-        s.downvotes_made = get_staff_downvotes(s.id)
-        
     return staff
 
 def get_all_staff_json():
