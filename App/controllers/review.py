@@ -33,7 +33,7 @@ def get_downvotes(id):
     return review.num_downvotes
 
 def get_all_reviews():
-    return Review.query.all()
+    return Review.query.order_by(Review.id.desc()).all()
 
 def get_all_reviews_json():
     reviews = Review.query.all()
