@@ -4,23 +4,26 @@
     cursor: pointer;
     padding: 4px;
   }
-  .upvote.shaded {
+  .upvote.shaded, .fas.fa-arrow-alt-circle-up {
     color: darkslateblue;
+    font-size: 36px;
   }
-  .upvote.unshaded {
+  .upvote.unshaded, .far.fa-arrow-alt-circle-up {
     color: darkslateblue;
     opacity: 0.5;
+    font-size: 36px;
   }
-  .downvote.shaded {
+  .downvote.shaded, .fas.fa-arrow-alt-circle-down {
     color: crimson;
+    font-size: 36px;
   }
-  .downvote.unshaded {
+  .downvote.unshaded, .far.fa-arrow-alt-circle-down {
     color: crimson;
     opacity: 0.5;
+    font-size: 36px;
   }
 
   #nav-mobile {
     display: flex;
     flex-direction: row;
-    align-items: center;
   }
