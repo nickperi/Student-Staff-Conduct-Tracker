@@ -30,8 +30,8 @@ class Staff(User):
             'id': self.id,
             'username': self.username,
             'email': self.email,
-            'upvotes made': self.upvotes_made,
-            'downvotes made': self.downvotes_made
+            'upvotes made': [upvote.id for upvote in self.upvotes_made],
+            'downvotes made': [downvote.id for downvote in self.downvotes_made]
         }
     
     def get_user_type(self):
