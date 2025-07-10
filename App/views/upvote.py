@@ -9,6 +9,7 @@ from App.controllers import (
     remove_upvote,
     get_all_upvotes,
     get_all_upvotes_json,
+    get_review,
     get_all_reviews,
     jwt_required
 )
@@ -45,7 +46,8 @@ def create_upvote_action():
         create_upvote(jwt_current_user.id, data['reviewid'])
         flash(f"Staff member {jwt_current_user.id} upvoted Review {data['reviewid']}")
         redirect(url_for('upvote_views.get_upvote_page'))
-        return jsonify({'success': True, 'message': 'Upvote successful!'}), 200
+        review = get_review(data['reviewid'])
+        return jsonify({'success': True, 'message': 'Upvote successful!', 'num_upvotes': review.num_upvotes}), 200
     except Exception as e:
         print(f"Error: {e}")
         redirect(url_for('upvote_views.get_upvote_page'))
@@ -56,9 +58,10 @@ def create_upvote_action():
 @jwt_required()
 def remove_upvote_action(reviewid):
     upvote = remove_upvote(jwt_current_user.id, reviewid)
+    review = get_review(reviewid)
 
     if upvote:
-        return jsonify({'success': True})
+        return jsonify({'success': True, 'num_upvotes': review.num_upvotes})
     else:
         return jsonify({'success': False, 'error': 'Upvote not found'}), 404
 
