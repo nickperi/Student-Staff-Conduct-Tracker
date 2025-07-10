@@ -10,6 +10,7 @@ from App.controllers import (
     get_staff_reviews,
     get_all_staff,
     get_all_staff_json,
+    get_student,
     jwt_required
 )
 
@@ -25,7 +26,7 @@ def get_staff_page():
 def my_page(id):
     staff = get_staff(id)
     reviews = get_staff_reviews(id)
-    return render_template('staff_profile.html', staff=staff, reviews=reviews)
+    return render_template('staff_profile.html', staff=staff, reviews=reviews, get_student=get_student)
 
 
 @staff_views.route('/api/staff', methods=['GET'])
