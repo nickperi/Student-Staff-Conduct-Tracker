@@ -18,7 +18,6 @@
         <a href="#!" class="brand-logo center" style="padding-top: 50px;">{% block page %}{% endblock %}</a>
         <div class="nav-wrapper">
             <ul id="nav-mobile" class="left" style="padding-bottom: 50px;">
-                <li><a href="/">Home</a></li>
 
                 {% if is_authenticated %}
                   <li><a href="{{ url_for('staff_views.my_page', id=current_user.id) }}">My Profile</a></li>
@@ -27,9 +26,11 @@
                   <li><a href="/reviews">Log Review</a></li>
                   <li><a href="/upvotes">Upvote Review</a></li>
                   <li><a href="/downvotes">Downvote Review</a></li>
-                {% endif %}
 
-                <li><a href="/static/users">All Users</a></li>
+                {% else %}
+                  <li><a href="/">Home</a></li>
+                  <li><a href="/static/users">All Users</a></li>
+                {% endif %}
             </ul>
 
             {% if is_authenticated %}
