@@ -21,10 +21,10 @@
                 <li><a href="/">Home</a></li>
 
                 {% if is_authenticated %}
-                  <li><a href="{{ url_for('staff_views.my_page', id=current_user.id) }}">Identify User</a></li>
+                  <li><a href="{{ url_for('staff_views.my_page', id=current_user.id) }}">My Profile</a></li>
                   <li><a href="/students">Add Student</a></li>
                   <li><a href="/staff">Add Staff</a></li>
-                  <li><a href="/reviews">Log Review</li>
+                  <li><a href="/reviews">Log Review</a></li>
                   <li><a href="/upvotes">Upvote Review</a></li>
                   <li><a href="/downvotes">Downvote Review</a></li>
                 {% endif %}
