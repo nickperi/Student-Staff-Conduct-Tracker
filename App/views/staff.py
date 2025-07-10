@@ -6,8 +6,11 @@ from.index import index_views
 
 from App.controllers import (
     create_staff,
+    get_staff,
+    get_staff_reviews,
     get_all_staff,
     get_all_staff_json,
+    get_student,
     jwt_required
 )
 
@@ -17,6 +20,14 @@ staff_views = Blueprint('staff_views', __name__, template_folder='../templates')
 def get_staff_page():
     staff = get_all_staff()
     return render_template('staff.html', staff=staff)
+
+
+@staff_views.route('/staff/<int:id>')
+def my_page(id):
+    staff = get_staff(id)
+    reviews = get_staff_reviews(id)
+    return render_template('staff_profile.html', staff=staff, reviews=reviews, get_student=get_student)
+
 
 @staff_views.route('/api/staff', methods=['GET'])
 def get_staff_action():
