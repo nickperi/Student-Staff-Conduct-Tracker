@@ -1,28 +1,31 @@
 {% extends "layout.html" %}
-{% block title %}Hi, {{current_user.username}}{% endblock %}
-{% block page %}Hi, {{current_user.username}}{% endblock %}
+{% block title %}{{current_user.username}}'s Profile{% endblock %}
+{% block page %}{{current_user.username}}'s Profile{% endblock %}
 
 {{ super() }}
 
 {% block content %}
     <div class="row">
-        <p>
-            This table is rendered on the Server. Flask gets the data from the database and uses jinja templates to dynamically render this page when a request is sent to <a href="/users">/users</a>.
-        </p>
+        <p style="font-size: 20px; font-weight: bold; text-align: center;">Reviews you logged</p>
     </div>
 
     <div class="row">
+
+    {% if reviews %}
     <table>
         <thead>
-            <tr> <th>Review ID</th> <th>Student ID</th> <th>Comments</th> </tr>
+            <tr> <th>Review ID</th> <th>Student</th> <th>Comments</th> </tr>
         </thead>
 
         {% for review in reviews %}
         <tbody>
-            <tr> <td>{{review.id}}</td> <td>{{review.studentid}}</td> <td>{{review.text}}</td> </tr>
+            <tr> <td>{{review.id}}</td> <td>{{get_student(review.studentid).username}}</td> <td>{{review.text}}</td> </tr>
         </tbody>
         {% endfor %}
     </table>
+    {% else%}
+        <p>You haven't logged any reviews</p>
+    {% endif %}
     </div>
     
 {% endblock %}
