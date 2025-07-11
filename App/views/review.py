@@ -4,7 +4,7 @@ from flask_login import current_user, login_required
 
 from.index import index_views
 
-from App.controllers import (log_review, get_all_reviews, get_all_reviews_json, get_my_upvotes, get_my_downvotes, get_all_students, jwt_required)
+from App.controllers import (get_staff, log_review, get_review, get_all_reviews, get_all_reviews_json, get_my_upvotes, get_my_downvotes, get_all_students, jwt_required)
 
 review_views = Blueprint('review_views', __name__, template_folder='../templates')
 
@@ -36,3 +36,10 @@ def create_review_action():
     flash(f"staff member {jwt_current_user.id} reviewed student {data['studentid']}!")
     log_review(jwt_current_user.id, data['studentid'], data['text'])
     return redirect(url_for('review_views.get_review_page'))
+
+@review_views.route('/reviews/<int:id>/upvotes', methods=['GET'])
+@jwt_required()
+def get_review_upvotes(id):
+    review = get_review(id)
+    upvotes = [get_staff(upvote.staffid) for upvote in review.upvotes]
+    return render_template('review_upvotes.html', review=review, upvotes=upvotes)

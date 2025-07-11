@@ -1,0 +1,35 @@
+{% extends "layout.html" %}
+{% block title %}Review {{review.id}} Upvotes{% endblock %}
+{% block page %}Review {{review.id}} Upvotes{% endblock %}
+
+{{ super() }}
+
+{% block content %}
+    <div class="row">
+        <p style="font-size: 20px; font-weight: bold; text-align: center;">Review {{review.id}} Upvotes</p>
+    </div>
+
+    <div class="row">
+        <table>
+          <thead>
+            <tr>
+              <th>Staff Members:</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            {% for upvote in upvotes %}
+                <tr>
+                    {% if upvote.id == current_user.id %}
+                        <td>You</td>
+                    {% else %}
+                        <td>{{upvote.username}}</td>
+                    {% endif %}
+
+                </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+    </div>
+
+{% endblock %}

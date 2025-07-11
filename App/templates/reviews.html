@@ -64,12 +64,12 @@
                 <td>{{review.text}}</td>
 
                 {% if review.id in upvotes %}
-                    <td id="{{review.id}}-num-upvotes"><i id="upvote-arrow-{{review.id}}" class='fas fa-arrow-alt-circle-up' onclick="unvote('{{review.id}}')" type="submit" name="action"></i> <span> {{review.num_upvotes}}</span> </td>
+                    <td id="{{review.id}}-num-upvotes"><i id="upvote-arrow-{{review.id}}" class='fas fa-arrow-alt-circle-up' onclick="unvote('{{review.id}}')" type="submit" name="action"></i> <a href="/reviews/{{review.id}}/upvotes"> <span> {{review.num_upvotes}}</span></a> </td>
                     <td id="{{review.id}}-num-downvotes"><i id="downvote-arrow-{{review.id}}" class='far fa-arrow-alt-circle-down' onclick="downvote('{{review.id}}')" type="submit" name="action"></i> <span> {{review.num_downvotes}}</span> </td>
                 {% endif %}
 
                 {% if review.id in downvotes %}
-                    <td id="{{review.id}}-num-upvotes"><i id="upvote-arrow-{{review.id}}" class='far fa-arrow-alt-circle-up' onclick="upvote('{{review.id}}')" type="submit" name="action"></i> <span> {{review.num_upvotes}}</span> </td>
+                    <td id="{{review.id}}-num-upvotes"><i id="upvote-arrow-{{review.id}}" class='far fa-arrow-alt-circle-up' onclick="upvote('{{review.id}}')" type="submit" name="action"></i> <a href="/reviews/{{review.id}}/upvotes"> <span> {{review.num_upvotes}}</span></a> </td>
                     <td id="{{review.id}}-num-downvotes"><i id="downvote-arrow-{{review.id}}" class='fas fa-arrow-alt-circle-down' onclick="undownvote('{{review.id}}')" type="submit" name="action"></i> <span> {{review.num_downvotes}}</span></td>
                 {% endif %}
 
