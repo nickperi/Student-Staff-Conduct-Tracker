@@ -17,7 +17,7 @@
       
                 if (data.success) {
                     console.log("Vote was successful!");
-                    reviewUpvotes.innerHTML = `<i id="upvote-arrow-${reviewId}" class="fas fa-arrow-alt-circle-up" onclick="unvote('${reviewId}')" type="submit" name="action"></i> <span> ${data.num_upvotes}</span>`;
+                    reviewUpvotes.innerHTML = `<i id="upvote-arrow-${reviewId}" class="fas fa-arrow-alt-circle-up" onclick="unvote('${reviewId}')" type="submit" name="action"></i> <a href="/reviews/${reviewId}/upvotes"> <span> ${data.num_upvotes}</span></a>`;
 
                      /*if downvote button is shaded, unshade it*/
                     if(downvoteButton.classList.contains('fas')) {
@@ -41,7 +41,7 @@
         .then(data => {
       
         if (data.success) {
-            reviewUpvotes.innerHTML = `<i id="upvote-arrow-${reviewId}" class="far fa-arrow-alt-circle-up" onclick="upvote('${reviewId}')" type="submit" name="action"></i> <span> ${data.num_upvotes}</span>`;
+            reviewUpvotes.innerHTML = `<i id="upvote-arrow-${reviewId}" class="far fa-arrow-alt-circle-up" onclick="upvote('${reviewId}')" type="submit" name="action"></i> <a href="/reviews/${reviewId}/upvotes"> <span> ${data.num_upvotes}</span></a>`;
                    
         } else {
             alert("Unvote failed.");
@@ -69,7 +69,7 @@
 
                 /*if upvote button is shaded, unshade it*/
                 if(upvoteButton.classList.contains('fas')) {
-                    reviewUpvotes.innerHTML = `<i id="upvote-arrow-${reviewId}" class="far fa-arrow-alt-circle-up" onclick="upvote('${reviewId}')" type="submit" name="action"></i> <span> ${data.num_upvotes}</span>`;
+                    reviewUpvotes.innerHTML = `<i id="upvote-arrow-${reviewId}" class="far fa-arrow-alt-circle-up" onclick="upvote('${reviewId}')" type="submit" name="action"></i> <a href="/reviews/${reviewId}/upvotes"> <span> ${data.num_upvotes}</span></a>`;
                 }
 
                  
