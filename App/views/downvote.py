@@ -8,8 +8,10 @@ from App.controllers import (
     jwt_required,
     get_all_downvotes,
     get_all_downvotes_json,
+    get_review,
     get_all_reviews,
-    create_downvote
+    create_downvote,
+    remove_downvote
 )
 
 downvote_views = Blueprint('downvote_views', __name__, template_folder='../templates')
@@ -35,7 +37,26 @@ def create_downvote_endpoint():
 @downvote_views.route('/downvotes', methods=['POST'])
 @jwt_required()
 def create_downvote_action():
-    data = request.form
-    flash(f"Staff member {jwt_current_user.id} downvoted Review {data['reviewid']}")
-    create_downvote(jwt_current_user.id, data['reviewid'])
-    return redirect(url_for('downvote_views.get_downvote_page'))
+    data = request.json
+
+    try: 
+        create_downvote(jwt_current_user.id, data['reviewid'])
+        flash(f"Staff member {jwt_current_user.id} downvoted Review {data['reviewid']}")
+        review = get_review(data['reviewid'])
+        redirect(url_for('downvote_views.get_downvote_page'))
+        return jsonify({'success': True, 'message': 'Downvote successful!', 'num_downvotes': review.num_downvotes, 'num_upvotes': review.num_upvotes}), 200
+    except Exception as e:
+        print(f"Error: {e}")
+        redirect(url_for('downvote_views.get_downvote_page'))
+        return jsonify({'success': False, 'error': str(e)}), 500
+
+@downvote_views.route('/downvotes/<int:reviewid>', methods=['DELETE'])
+@jwt_required()
+def remove_downvote_action(reviewid):
+    downvote = remove_downvote(jwt_current_user.id, reviewid)
+    review = get_review(reviewid)
+
+    if downvote:
+        return jsonify({'success': True, 'num_upvotes': review.num_upvotes, 'num_downvotes': review.num_downvotes})
+    else:
+        return jsonify({'success': False, 'error': 'Upvote not found'}), 404

@@ -47,7 +47,7 @@ def create_upvote_action():
         flash(f"Staff member {jwt_current_user.id} upvoted Review {data['reviewid']}")
         redirect(url_for('upvote_views.get_upvote_page'))
         review = get_review(data['reviewid'])
-        return jsonify({'success': True, 'message': 'Upvote successful!', 'num_upvotes': review.num_upvotes}), 200
+        return jsonify({'success': True, 'message': 'Upvote successful!', 'num_upvotes': review.num_upvotes, 'num_downvotes': review.num_downvotes}), 200
     except Exception as e:
         print(f"Error: {e}")
         redirect(url_for('upvote_views.get_upvote_page'))
@@ -61,7 +61,7 @@ def remove_upvote_action(reviewid):
     review = get_review(reviewid)
 
     if upvote:
-        return jsonify({'success': True, 'num_upvotes': review.num_upvotes})
+        return jsonify({'success': True, 'num_upvotes': review.num_upvotes, 'num_downvotes': review.num_downvotes})
     else:
         return jsonify({'success': False, 'error': 'Upvote not found'}), 404
 

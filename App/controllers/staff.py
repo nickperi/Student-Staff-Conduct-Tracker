@@ -31,6 +31,10 @@ def log_review(id, studentid, text):
 def create_upvote(id, reviewid):
     review = Review.query.filter_by(id=reviewid).first()
     existing_upvote = Upvote.query.filter_by(staffid=id, reviewid=reviewid).first()
+    existing_downvote = Downvote.query.filter_by(staffid=id, reviewid=reviewid).first()
+
+    if existing_downvote:
+        remove_downvote(id, reviewid)
 
     if not existing_upvote:
         new_upvote = Upvote(staffid=id, reviewid=reviewid)
@@ -55,12 +59,29 @@ def remove_upvote(id, reviewid):
 def create_downvote(id, reviewid):
     staff = Staff.query.filter_by(id=id).first()
     review = Review.query.filter_by(id=reviewid).first()
+    existing_downvote = Downvote.query.filter_by(staffid=id, reviewid=reviewid).first()
+    existing_upvote = Upvote.query.filter_by(staffid=id, reviewid=reviewid).first()
 
-    if staff and review:
+    if existing_upvote:
+        remove_upvote(id, reviewid)
+
+    if not existing_downvote:
         new_downvote = Downvote(staffid=id, reviewid=reviewid)
         db.session.add(new_downvote)
         review.num_downvotes += 1
         return db.session.commit()
+    return None
+
+
+def remove_downvote(id, reviewid):
+    downvote = Downvote.query.filter_by(staffid=id, reviewid=reviewid).first()
+    review = Review.query.filter_by(id=reviewid).first()
+
+    if downvote and review:
+        db.session.delete(downvote)
+        review.num_downvotes -= 1
+        db.session.commit()
+        return downvote
     return None
 
 
