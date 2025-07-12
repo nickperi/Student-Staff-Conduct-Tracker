@@ -21,7 +21,7 @@
 
                      /*if downvote button is shaded, unshade it*/
                     if(downvoteButton.classList.contains('fas')) {
-                      reviewDownvotes.innerHTML = `<i id="downvote-arrow-${reviewId}" class="far fa-arrow-alt-circle-down" onclick="downvote('${reviewId}')" type="submit" name="action"></i> <span> ${data.num_downvotes}</span>`;
+                      reviewDownvotes.innerHTML = `<i id="downvote-arrow-${reviewId}" class="far fa-arrow-alt-circle-down" onclick="downvote('${reviewId}')" type="submit" name="action"></i> <a href="/reviews/${reviewId}/downvotes"> <span> ${data.num_downvotes}</span></a>`;
                     }
 
                   } else {
@@ -65,7 +65,7 @@
       
             if (data.success) {
                 console.log("Downvote was successful!");
-                reviewDownvotes.innerHTML = `<i id="downvote-arrow-${reviewId}" class="fas fa-arrow-alt-circle-down" onclick="undownvote('${reviewId}')" type="submit" name="action"></i> <span> ${data.num_downvotes}</span>`;
+                reviewDownvotes.innerHTML = `<i id="downvote-arrow-${reviewId}" class="fas fa-arrow-alt-circle-down" onclick="undownvote('${reviewId}')" type="submit" name="action"></i> <a href="/reviews/${reviewId}/downvotes"> <span> ${data.num_downvotes}</span></a>`;
 
                 /*if upvote button is shaded, unshade it*/
                 if(upvoteButton.classList.contains('fas')) {
@@ -88,7 +88,7 @@
             .then(data => {
 
             if (data.success) {
-            reviewDownvotes.innerHTML = `<i id="downvote-arrow-${reviewId}" class="far fa-arrow-alt-circle-down" onclick="downvote('${reviewId}')" type="submit" name="action"></i> <span> ${data.num_downvotes}</span>`;
+            reviewDownvotes.innerHTML = `<i id="downvote-arrow-${reviewId}" class="far fa-arrow-alt-circle-down" onclick="downvote('${reviewId}')" type="submit" name="action"></i> <a href="/reviews/${reviewId}/downvotes"> <span> ${data.num_downvotes}</span></a>`;
             
             } else {
                 alert("Unvote failed.");

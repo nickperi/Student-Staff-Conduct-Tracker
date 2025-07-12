@@ -1,12 +1,12 @@
 {% extends "layout.html" %}
-{% block title %}Review {{review.id}} Upvoters{% endblock %}
-{% block page %}Review {{review.id}} Upvoters{% endblock %}
+{% block title %}Review {{review.id}} Downvoters{% endblock %}
+{% block page %}Review {{review.id}} Downvoters{% endblock %}
 
 {{ super() }}
 
 {% block content %}
     <div class="row">
-        <p style="font-size: 20px; font-weight: bold; text-align: center;">Review {{review.id}} Upvoters</p>
+        <p style="font-size: 20px; font-weight: bold; text-align: center;">Review {{review.id}} Downvoters</p>
     </div>
 
     <div class="row">
@@ -18,12 +18,12 @@
           </thead>
 
           <tbody>
-            {% for upvote in upvotes %}
+            {% for downvote in downvotes %}
                 <tr>
-                    {% if upvote.id == current_user.id %}
+                    {% if downvote.id == current_user.id %}
                         <td>You</td>
                     {% else %}
-                        <td>{{upvote.username}}</td>
+                        <td>{{downvote.username}}</td>
                     {% endif %}
 
                 </tr>

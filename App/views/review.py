@@ -43,3 +43,10 @@ def get_review_upvotes(id):
     review = get_review(id)
     upvotes = [get_staff(upvote.staffid) for upvote in review.upvotes]
     return render_template('review_upvotes.html', review=review, upvotes=upvotes)
+
+@review_views.route('/reviews/<int:id>/downvotes', methods=['GET'])
+@jwt_required()
+def get_review_downvotes(id):
+    review = get_review(id)
+    downvotes = [get_staff(downvote.staffid) for downvote in review.downvotes]
+    return render_template('review_downvotes.html', review=review, downvotes=downvotes)

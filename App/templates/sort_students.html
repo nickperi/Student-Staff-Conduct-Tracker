@@ -1,0 +1,41 @@
+{% extends "layout.html" %}
+{% block title %}Add Students{% endblock %}
+{% block page %}Add Students{% endblock %}
+
+{{ super() }}
+
+{% block content %}
+    <div class="row">
+        <p>
+            This table is rendered on the Server. Flask gets the data from the database and uses jinja templates to dyanmically render this page when a request is sent to <a href="/students">/students</a>.
+        </p>
+    </div>
+
+    <div class="row">
+
+      <label for="sort">Sort by</label> <br>
+      <select name="sort" id="sort-by">
+        <option value="none">No sort</option>
+        <option value="id-asc">Student ID Ascending</option>
+        <option value="id-desc">Student ID Descending</option>
+        <option value="username-asc">Username Ascending</option>
+        <option value="username-desc">Username Descending</option>
+        <option value="score-asc">Score Ascending</option>
+        <option value="score-desc">Score Descending</option>
+      </select>
+    
+      <table>
+        <thead>
+          <tr>
+            <th>Student ID</th><th>Username</th><th>Email</th><th>Score</th>
+          </tr>
+        </thead>
+        <tbody id="students-table">
+    
+        <tbody>
+      </table>
+    </div>
+
+    <script src="static/students.js"></script>
+
+{% endblock %}
