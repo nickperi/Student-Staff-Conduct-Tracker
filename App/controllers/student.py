@@ -20,9 +20,8 @@ def update_score(id):
         reviews = Review.query.filter_by(studentid=id)
 
         if reviews:
-            for review in reviews:
-                upvotes += review.num_upvotes
-                downvotes += review.num_downvotes
+            upvotes = sum(review.num_upvotes for review in reviews)
+            downvotes = sum(review.num_downvotes for review in reviews)
             student.score = (upvotes*5) - (downvotes*2)
             db.session.add(student)
             return db.session.commit()

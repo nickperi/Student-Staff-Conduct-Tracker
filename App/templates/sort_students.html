@@ -30,10 +30,27 @@
             <th>Student ID</th><th>Username</th><th>Email</th><th>Score</th>
           </tr>
         </thead>
+
         <tbody id="students-table">
-    
+          {% for student in students%}
+            <tr>
+              <td>{{student.id}}</td>
+              <td>{{student.username}}</td>
+              <td>{{student.email}}</td>
+
+              {% if student.score >= 10 %}
+                <td><span class="new badge green" data-badge-caption="Excellent">{{student.score}}</span></td>
+              {% elif student.score >= 0 %} 
+                <td><span class="new badge orange" data-badge-caption="Mixed">{{student.score}}</span></td>
+              {% else %}
+                <td><span class="new badge red" data-badge-caption="Needs Work">{{student.score}}</span></td>
+              {% endif %}
+            </tr>
+          {% endfor %}
+
         <tbody>
       </table>
+      
     </div>
 
     <script src="static/students.js"></script>

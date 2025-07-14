@@ -78,6 +78,7 @@
                     <td id="{{review.id}}-num-downvotes"><i id="downvote-arrow-{{review.id}}" class='far fa-arrow-alt-circle-down' onclick="downvote('{{review.id}}')" type="submit" name="action"></i> <a href="/reviews/{{review.id}}/downvotes"> <span> {{review.num_downvotes}}</span></a></td>
                 {% endif %}
 
+                <td>{{calculate_time_elapsed(review.created_at)}}</td>
               </tr>
             {% endfor %}
           <tbody>

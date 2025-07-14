@@ -1,5 +1,6 @@
 from App.database import db
 from sqlalchemy import ForeignKey
+from datetime import datetime
 
 class Review(db.Model):
     __tablename__ = "review"
@@ -11,6 +12,8 @@ class Review(db.Model):
     downvotes = db.relationship('Downvote', backref='review', lazy='dynamic')
     num_upvotes = db.Column(db.Integer, default=0)
     num_downvotes = db.Column(db.Integer, default=0)
+    created_at = db.Column(db.DateTime, default=datetime.now)
+    updated_at = db.Column(db.DateTime, default=datetime.now, onupdate=datetime.now)
 
     def __init__(self, staffid, studentid, text):
         self.staffid = staffid

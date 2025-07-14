@@ -13,12 +13,32 @@ function getStudents(sortAttribute) {
 function loadTable(students) {
     table.innerHTML = "";
     students.forEach(student => {
-        table.innerHTML += `<tr>
+
+        if(student.score >= 10) {
+            table.innerHTML += `<tr>
             <td>${student.id}</td>
             <td>${student.username}</td>
             <td>${student.email}</td>
-            <td>${student.score}</td>
-        </tr>`;
+            <td><span class="new badge green" data-badge-caption="Excellent">${student.score}</span></td> 
+            </tr>`;
+        }
+        
+        else if(student.score >= 0) {
+            table.innerHTML += `<tr>
+            <td>${student.id}</td>
+            <td>${student.username}</td>
+            <td>${student.email}</td>
+            <td><span class="new badge orange" data-badge-caption="Mixed">${student.score}</span></td> 
+            </tr>`;
+        }
+        else {
+            table.innerHTML += `<tr>
+            <td>${student.id}</td>
+            <td>${student.username}</td>
+            <td>${student.email}</td>
+            <td><span class="new badge red" data-badge-caption="Needs Work">${student.score}</span></td> 
+            </tr>`;
+        }
     });
 }
 

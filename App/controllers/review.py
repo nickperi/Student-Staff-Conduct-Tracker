@@ -2,6 +2,7 @@ from App.models.review import Review
 from App.models.upvote import Upvote
 from App.models.downvote import Downvote
 from App.database import db
+from datetime import datetime
 
 def get_review(id):
     return Review.query.get(id)
@@ -31,6 +32,23 @@ def get_upvotes(id):
 def get_downvotes(id):
     review = get_review(id)
     return review.num_downvotes
+
+def calculate_time_elapsed(dt):
+    diff = datetime.now() - dt
+    seconds = diff.total_seconds()
+
+    if(seconds < 60):
+        return f"{int(seconds)}s"
+    elif(seconds < 3600):
+        return f"{int(seconds//60)}m"
+    elif(seconds < 86400):
+        return f"{int(seconds//3600)}h"
+    elif(seconds < 604800):
+        return f"{int(seconds//86400)}d"
+    elif(seconds < 2419200):
+        return f"{int(seconds//604800)}w"
+    else:
+        return f"{diff}"
 
 def get_all_reviews():
     return Review.query.order_by(Review.id.desc()).all()
