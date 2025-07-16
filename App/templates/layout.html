@@ -11,6 +11,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>{% block title %}{% endblock %}</title>
 
+    {% set navigation_bar = [('/', 'index', 'Index'), ('/staff', 'add-staff', 'Add Staff'), ('/students', 'add-student', 'Add Student'), ('/staff/'~current_user.id|string(), 'my-profile', current_user.username|string()~"'s Profile"), ('/view-students', 'view-students', 'View Students'), ('/reviews', 'log-review', 'Log Review')] -%}
+    {% set active_page = active_page|default('index') -%}
+
   </head>
   <body>
     <nav class="purple" style="height: 120px;">
@@ -19,14 +22,19 @@
         <div class="nav-wrapper">
             <ul id="nav-mobile" class="left" style="padding-bottom: 50px;">
 
+ 
+
                 {% if is_authenticated %}
-                  <li><a href="{{ url_for('staff_views.my_page', id=current_user.id) }}">My Profile</a></li>
-                  <li><a href="/students">Add Student</a></li>
-                  <li><a href="/view-students">View Students</a></li>
-                  <li><a href="/staff">Add Staff</a></li>
-                  <li><a href="/reviews">Log Review</a></li>
-                  <li><a href="/upvotes">Upvote Review</a></li>
-                  <li><a href="/downvotes">Downvote Review</a></li>
+                <!--  <li class="{{ 'active1' if request.endpoint == 'staff_views.my_page' else '' }}"><a id="my-profile" href="{{ url_for('staff_views.my_page', id=current_user.id) }}">My Profile</a></li>
+                  <li class="{{ 'active1' if request.endpoint == 'student_views.get_student_page' else '' }}"><a id="add-student" href="/students">Add Student</a></li>
+                  <li class="{{ 'active1' if request.endpoint == 'student_views.get_students_sorted' else '' }}"><a id="view-students" href="/view-students">View Students</a></li>
+                  <li class="{{ 'active1' if request.endpoint == 'staff_views.get_staff_page' else '' }}"><a id="add-staff" href="/staff">Add Staff</a></li>
+                  <li class="{{ 'active1' if request.endpoint == 'review_views.get_review_page' else '' }}"><a id="log-review" href="/reviews">Log Review</a></li> -->
+
+                  {% for href, id, caption in navigation_bar %}
+                    <li{% if id == active_page %} class="active1"{% endif %}>
+                    <a href="{{ href|e }}">{{ caption|e }}</a></li>
+                  {% endfor %}
 
                 {% else %}
                   <li><a href="/">Home</a></li>
@@ -73,5 +81,17 @@
     <div class="container" id="content">{% block content %}{% endblock %}</div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    
+    <script>
+      const myProfileButton = document.getElementById('my-profile');
+      const addStaffButton = document.getElementById('add-staff');
+      const addStudentButton = document.getElementById('add-student');
+      const viewStudentsButton = document.getElementById('view-students');
+      const logReviewButton = document.getElementById('log-review');
+
+      function myProfileButtonClick(userId) {
+        myProfileButton.innerHTML = `<a id="my-profile" onclick="myProfileButtonClick('current_user.id')" href="/staff/${userId}" style="color:aqua; background-color: darkmagenta">My Profile</a>`;
+      }
+    </script>
   </body>
 </html>

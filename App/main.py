@@ -4,13 +4,13 @@ from flask_uploads import DOCUMENTS, IMAGES, TEXT, UploadSet, configure_uploads
 from flask_cors import CORS
 from werkzeug.utils import secure_filename
 from werkzeug.datastructures import  FileStorage
-from config import DevelopmentConfig, ProductionConfig
+
 from dotenv import load_dotenv
 load_dotenv()
 
 
 from App.database import init_db
-from App.config import load_config
+from App.config import DevelopmentConfig, ProductionConfig
 
 
 from App.controllers import (
