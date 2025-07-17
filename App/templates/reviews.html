@@ -62,7 +62,14 @@
                 <td>{{review.id}}</td>
                 <td>{{review.staffid}}</td>
                 <td>{{review.studentid}}</td>
-                <td>{{review.text}}</td>
+
+                {% if analyze_sentiment(review.text) == "Positive" %}
+                  <td> {{review.text}} <span class="new badge green" data-badge-caption="{{analyze_sentiment(review.text)}}"></span></td>
+                {% elif analyze_sentiment(review.text) == "Neutral" %}
+                  <td> {{review.text}} <span class="new badge orange" data-badge-caption="{{analyze_sentiment(review.text)}}"></span></td>
+                {% else %}
+                  <td> {{review.text}} <span class="new badge red" data-badge-caption="{{analyze_sentiment(review.text)}}"></span></td>
+                {% endif %}
 
                 {% if review.id in upvotes %}
                     <td id="{{review.id}}-num-upvotes"><i id="upvote-arrow-{{review.id}}" class='fas fa-arrow-alt-circle-up' onclick="unvote('{{review.id}}')" type="submit" name="action"></i> <a href="/reviews/{{review.id}}/upvotes"> <span> {{review.num_upvotes}}</span></a> </td>

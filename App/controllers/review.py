@@ -3,9 +3,21 @@ from App.models.upvote import Upvote
 from App.models.downvote import Downvote
 from App.database import db
 from datetime import datetime
+from textblob import TextBlob
 
 def get_review(id):
     return Review.query.get(id)
+
+
+def analyze_sentiment(text):
+    polarity = TextBlob(text).sentiment.polarity
+    if polarity > 0.1:
+        return "Positive"
+    elif polarity < -0.1:
+        return "Negative"
+    else:
+        return "Neutral"
+    
 
 def update_upvotes(id): 
     review = get_review(id)

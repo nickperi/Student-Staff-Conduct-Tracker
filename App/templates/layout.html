@@ -11,7 +11,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>{% block title %}{% endblock %}</title>
 
-    {% set navigation_bar = [('/', 'index', 'Index'), ('/staff', 'add-staff', 'Add Staff'), ('/students', 'add-student', 'Add Student'), ('/staff/'~current_user.id|string(), 'my-profile', current_user.username|string()~"'s Profile"), ('/view-students', 'view-students', 'View Students'), ('/reviews', 'log-review', 'Log Review')] -%}
+    {% set navigation_bar = [('/', 'index', 'Home'), 
+                              ('/staff/'~current_user.id|string(), 'my-profile', current_user.username|string()~"'s Profile"), 
+                              ('/staff', 'add-staff', 'Add Staff'), 
+                              ('/students', 'add-student', 'Add Student'), 
+                              ('/view-students', 'view-students', 'View Students'), 
+                              ('/reviews', 'log-review', 'Log Review')] -%}
     {% set active_page = active_page|default('index') -%}
 
   </head>
