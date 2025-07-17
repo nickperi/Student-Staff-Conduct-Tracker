@@ -1,4 +1,5 @@
 from sqlalchemy import asc, desc
+from App.controllers.review import analyze_sentiment
 from App.models.student import Student
 from App.models.upvote import Upvote
 from App.models.downvote import Downvote
@@ -13,16 +14,25 @@ def create_student(username, password, email):
 
 def update_score(id): 
     student = get_student(id)
-    upvotes = 0
-    downvotes = 0
+    score = 0
 
     if student:
         reviews = Review.query.filter_by(studentid=id)
 
         if reviews:
-            upvotes = sum(review.num_upvotes for review in reviews)
-            downvotes = sum(review.num_downvotes for review in reviews)
-            student.score = (upvotes*5) - (downvotes*2)
+
+            for review in reviews:
+                if(analyze_sentiment(review.text) == "Positive"):
+                    score += review.num_upvotes*5
+                    score -= review.num_downvotes*2
+                elif(analyze_sentiment(review.text) == "Negative"):
+                    score += review.num_downvotes*5
+                    score -= review.num_upvotes*2
+                else:
+                    score += review.num_upvotes*3
+                    score -= review.num_downvotes*3
+
+            student.score = score
             db.session.add(student)
             return db.session.commit()
     return None
