@@ -30,10 +30,14 @@
 
 .active1 {
   background-color: darkmagenta;
+  color: aqua;
   border-radius: 5px;
   font-weight: bold;
 }
+<<<<<<< HEAD
 
 .active1 a {
   color: aquamarine;
 }
+=======
+>>>>>>> parent of cc82e87 (Modified review page)
