@@ -4,7 +4,7 @@ from flask_login import current_user, login_required
 
 from.index import index_views
 
-from App.controllers import (get_staff, log_review, get_review, analyze_sentiment, get_all_reviews, get_all_reviews_json, get_my_upvotes, get_my_downvotes, calculate_time_elapsed, get_all_students, jwt_required)
+from App.controllers import (get_staff, get_student, log_review, get_review, analyze_sentiment, get_all_reviews, get_all_reviews_json, get_my_upvotes, get_my_downvotes, calculate_time_elapsed, get_all_students, jwt_required)
 
 review_views = Blueprint('review_views', __name__, template_folder='../templates')
 
@@ -15,7 +15,7 @@ def get_review_page():
     students = get_all_students()
     upvotes = get_my_upvotes(jwt_current_user.id)
     downvotes = get_my_downvotes(jwt_current_user.id)
-    return render_template('reviews.html', reviews=reviews, upvotes=upvotes, downvotes=downvotes, students=students, calculate_time_elapsed=calculate_time_elapsed, analyze_sentiment=analyze_sentiment)
+    return render_template('reviews.html', reviews=reviews, upvotes=upvotes, downvotes=downvotes, students=students, get_staff=get_staff, get_student=get_student, calculate_time_elapsed=calculate_time_elapsed, analyze_sentiment=analyze_sentiment)
 
 @review_views.route('/api/reviews', methods=['GET'])
 def get_review_action():

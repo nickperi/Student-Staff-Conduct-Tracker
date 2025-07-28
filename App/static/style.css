@@ -30,7 +30,10 @@
 
 .active1 {
   background-color: darkmagenta;
-  color: aqua;
   border-radius: 5px;
   font-weight: bold;
+}
+
+.active1 a {
+  color: mediumturquoise;
 }
