@@ -52,14 +52,12 @@
         <table>
           <thead>
             <tr>
-              <th>Review ID</th><th>Staff Member</th><th>Student</th><th>Description</th>
+              <th>Staff Member</th><th>Student</th><th>Description</th>
             </tr>
           </thead>
           <tbody id="reviews-table">
-            {{upvotes}}
             {% for review in reviews %}
               <tr id="{{review.id}}">
-                <td>{{review.id}}</td>
                 <td>{{get_staff(review.staffid).username}}</td>
                 <td>{{get_student(review.studentid).username}}</td>
 
