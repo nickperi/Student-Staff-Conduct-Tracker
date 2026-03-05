@@ -15,7 +15,7 @@ class Student(User):
     username =  db.Column(db.String, nullable=False, unique=True)
     email = db.Column(db.String(120), nullable=False)
     score = db.Column(db.Integer, default=0)
-    courses = db.relationship('Course', secondary=student_courses, backref=db.backref('students', lazy='dynamic'), lazy='dynamic')
+    courses = db.relationship('Course', secondary=student_courses, backref=db.backref('student', lazy='dynamic'), lazy='dynamic')
 
     __mapper_args__ = {
         'polymorphic_identity': 'student',

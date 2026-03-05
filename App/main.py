@@ -5,9 +5,12 @@ from flask_cors import CORS
 from werkzeug.utils import secure_filename
 from werkzeug.datastructures import  FileStorage
 
+from dotenv import load_dotenv
+load_dotenv()
+
 
 from App.database import init_db
-from App.config import load_config
+from App.config import DevelopmentConfig, ProductionConfig
 
 
 from App.controllers import (
@@ -23,7 +26,12 @@ def add_views(app):
 
 def create_app(overrides={}):
     app = Flask(__name__, static_url_path='/static')
-    load_config(app, overrides)
+    
+    if os.environ.get("ENV") == "PRODUCTION":
+        app.config.from_object(ProductionConfig)
+    else:
+        app.config.from_object(DevelopmentConfig)
+
     CORS(app)
     add_auth_context(app)
     photos = UploadSet('photos', TEXT + DOCUMENTS + IMAGES)

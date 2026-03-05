@@ -1,4 +1,5 @@
 from App.models.course import Course
+from App.database import db
 
 def add_course(code, title):
     course = Course(code=code, title=title)

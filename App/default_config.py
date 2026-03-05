@@ -1,4 +1,0 @@
-SQLALCHEMY_DATABASE_URI = "postgresql://student_conduct_tracker_db_rbaa_user:ZJzYqpMksjMH9kFmbYspOCPCAZvLjOG8@dpg-d1ka18mr433s73c9vj40-a.oregon-postgres.render.com/student_conduct_tracker_db_rbaa"
-SECRET_KEY = "secret key"
-JWT_ACCESS_TOKEN_EXPIRES = 300
-ENV = "DEVELOPMENT"
