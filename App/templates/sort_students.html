@@ -27,7 +27,7 @@
       <table>
         <thead>
           <tr>
-            <th>Student ID</th><th>Username</th><th>Email</th><th>Score</th>
+            <th>Student ID</th><th>Username</th><th>Email</th><th>Score</th><th>Courses</th>
           </tr>
         </thead>
 
@@ -45,6 +45,12 @@
               {% else %}
                 <td><span class="new badge red" data-badge-caption="Needs Work">{{student.score}}</span></td>
               {% endif %}
+
+                <td><ol>
+                  {% for course in student.courses %}
+                    <li>{{course.code}} - {{course.title}}</li>
+                  {% endfor %}
+                </ol></td>
             </tr>
           {% endfor %}
 

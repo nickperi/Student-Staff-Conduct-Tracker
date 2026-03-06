@@ -6,6 +6,7 @@ from.index import index_views
 
 from App.controllers import (
     create_student, 
+    get_courses,
     get_all_students,
     get_all_students_json,
     sort_students_by_id,

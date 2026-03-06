@@ -30,6 +30,10 @@ def update_score(id):
 def get_student(id):
     return Student.query.get(id)
 
+def get_courses(id):
+    student = get_student(id)
+    return student.courses
+
 def get_all_students():
     students = Student.query.order_by(desc(Student.score)).all()
     for student in students:
