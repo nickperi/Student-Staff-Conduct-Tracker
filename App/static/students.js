@@ -12,7 +12,9 @@ function getStudents(sortAttribute) {
 
 function loadTable(students) {
     table.innerHTML = "";
+
     students.forEach(student => {
+        let courses = student.courses.map(course => `<li>${course}</li>`).join("");
 
         if(student.score >= 10) {
             table.innerHTML += `<tr>
@@ -20,6 +22,7 @@ function loadTable(students) {
             <td>${student.username}</td>
             <td>${student.email}</td>
             <td><span class="new badge green" data-badge-caption="Excellent">${student.score}</span></td> 
+            <td><ol>${courses}</ol></td>
             </tr>`;
         }
         
@@ -29,6 +32,7 @@ function loadTable(students) {
             <td>${student.username}</td>
             <td>${student.email}</td>
             <td><span class="new badge orange" data-badge-caption="Mixed">${student.score}</span></td> 
+           <td><ol>${courses}</ol></td>
             </tr>`;
         }
         else {
@@ -37,6 +41,7 @@ function loadTable(students) {
             <td>${student.username}</td>
             <td>${student.email}</td>
             <td><span class="new badge red" data-badge-caption="Needs Work">${student.score}</span></td> 
+           <td><ol>${courses}</ol></td>
             </tr>`;
         }
     });
