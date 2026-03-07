@@ -33,7 +33,7 @@ def enroll_endpoint():
     enrollment = enroll(data['student_id'], data['course_id'])
     if enrollment:
         return jsonify({'message': f"student {data['student_id']} enrolled in course {data['course_id']}"})
-    return return jsonify({'message': f"student {data['student_id']} not enrolled in course {data['course_id']}"})
+    return jsonify({'message': f"student {data['student_id']} not enrolled in course {data['course_id']}"})
 
 @student_course_views.route('/student-courses', methods=['POST'])
 def enroll_action():
