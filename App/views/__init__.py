@@ -7,10 +7,11 @@ from .review import review_views
 from .upvote import upvote_views
 from .downvote import downvote_views
 from .course import course_views
+from .student_course import student_course_views
 from .index import index_views
 from .auth import auth_views
 from .admin import *
 
 
-views = [user_views, student_views, staff_views, review_views, upvote_views, downvote_views, course_views, index_views, auth_views] 
+views = [user_views, student_views, staff_views, review_views, upvote_views, downvote_views, course_views, student_course_views, index_views, auth_views] 
 # blueprints must be added to this list
