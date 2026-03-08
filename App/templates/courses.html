@@ -35,7 +35,7 @@
       <table>
         <thead>
           <tr>
-            <th>Course Code</th><th>Course Title</th>
+            <th>Course Code</th><th>Course Title</th><th>Students Enrolled</th>
           </tr>
         </thead>
         <tbody>
@@ -43,6 +43,13 @@
             <tr>
                 <td>{{course.code}}</td>
                 <td>{{course.title}}</td>
+
+                <td><ol>
+                  {% for student in course.students %}
+                    <li>{{student.username}}</li>
+                  {% endfor %}
+                </ol></td>
+
             </tr>
           {% endfor %}
         <tbody>
