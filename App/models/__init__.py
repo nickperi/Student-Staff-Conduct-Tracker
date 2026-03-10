@@ -5,4 +5,6 @@ from .review import *
 from .upvote import *
 from .downvote import *
 from .course import *
+from .enrollment import *
+from .offering import *
 

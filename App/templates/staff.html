@@ -45,7 +45,7 @@
       <table>
         <thead>
           <tr>
-            <th>Staff ID</th><th>Username</th><th>Email</th>
+            <th>Staff ID</th><th>Username</th><th>Email</th><th>Courses Teaching</th>
           </tr>
         </thead>
         <tbody>
@@ -54,6 +54,12 @@
                 <td>{{member.id}}</td>
                 <td>{{member.username}}</td>
                 <td>{{member.email}}</td>
+
+                <td><ol>
+                  {% for course in member.courses %}
+                    <li>{{course.code}} - {{course.title}}</li>
+                  {% endfor %}
+                </ol></td>
             </tr>
           {% endfor %}
         <tbody>

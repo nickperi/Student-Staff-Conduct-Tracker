@@ -6,4 +6,5 @@ from .upvote import *
 from .downvote import *
 from .staff import *
 from .course import *
-from .student_course import *
+from .enrollment import *
+from .offering import *

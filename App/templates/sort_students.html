@@ -48,8 +48,8 @@
               {% endif %}
 
                 <td><ol>
-                  {% for course in student.courses %}
-                    <li>{{course.code}} - {{course.title}}</li>
+                  {% for offering in student.offerings %}
+                    <li>{{get_course(offering.course_id).code}} - {{get_course(offering.course_id).title}}</li>
                   {% endfor %}
                 </ol></td>
             </tr>

@@ -1,7 +1,7 @@
 from App.database import db
 from App.models.user import User
 from App.models.upvote import Upvote
-from App.models.student import Student
+from App.models.course import Course
 from sqlalchemy import ForeignKey
 
 class Staff(User):
@@ -9,6 +9,7 @@ class Staff(User):
     id = db.Column(db.Integer, db.ForeignKey('user.id'), primary_key=True)
     username =  db.Column(db.String, nullable=False, unique=True)
     email = db.Column(db.String(120), nullable=False)
+    courses = db.relationship('Course', secondary='offering', backref='staff_members')
     reviews_logged = db.relationship('Review', backref='staff', lazy='dynamic')
     upvotes_made = db.relationship('Upvote', backref='staff', lazy='dynamic')
     downvotes_made = db.relationship('Downvote', backref='staff', lazy='dynamic')

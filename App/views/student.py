@@ -11,6 +11,8 @@ from App.controllers import (
     sort_students_by_id,
     sort_students_by_score,
     sort_students_by_username,
+    get_course,
+    get_staff,
     jwt_required
 )
 
@@ -24,7 +26,7 @@ def get_student_page():
 @student_views.route('/view-students', methods=['GET'])
 def get_students_sorted():
     students = get_all_students()
-    return render_template('sort_students.html', students=students)
+    return render_template('sort_students.html', students=students, get_course=get_course, get_staff=get_staff)
 
 @student_views.route('/api/students', methods=['GET'])
 def get_students_action():

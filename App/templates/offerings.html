@@ -1,0 +1,76 @@
+{% extends "layout.html" %}
+{% block title %}Course Offerings{% endblock %}
+{% block page %}Course Offerings{% endblock %}
+
+{{ super() }}
+
+{% block content %}
+    <div class="row">
+
+        <form class="col s12" method="POST" action="/offerings">
+            <div class="row">
+                <div class="input-field col s6">
+                    <br><br>
+                    <select name="course_id" id="course_id" style="border: 1px solid cadetblue">
+                    {% for course in courses %}
+                        <option value={{course.id}}>{{course.code}} - {{course.title}}</option>
+                    {% endfor %}
+                    </select>
+                    <label for="course_id">Course ID</label> 
+                </div>
+
+                <div class="input-field col s6">
+                    <br><br>
+                    <select name="staff_id" id="staff_id" style="border: 1px solid cadetblue">
+                    {% for staff in staff_members %}
+                        <option value={{staff.id}}>{{staff.id}} - {{staff.username}}</option>
+                    {% endfor %}
+                    </select>
+                    <label for="staff_id">Staff ID</label> 
+                </div>
+
+                <div class="input-field col s6">
+                    <br><br>
+                    <select name="semester" id="semester" style="border: 1px solid cadetblue">
+                        <option value="Spring 2026">Spring 2026</option>
+                        <option value="Fall 2026">Fall 2026</option>
+                        <option value="Spring 2027">Spring 2027</option>
+                    </select>
+                    <label for="semester">Semester</label>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="input-field col s12">
+                    <button class="btn waves-effect waves-light right purple" type="submit" name="action">Add Offering</button>
+                </div>
+            </div>
+
+        </form>
+
+        <div class="row">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Offering ID</th><th>Course</th><th>Staff</th><th>Semester</th><th>Enrolled Students</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for offering in offerings %}
+                        <tr>
+                            <td>{{offering.id}}</td>
+                            <td>{{get_course(offering.course_id).code}} - {{get_course(offering.course_id).title}}</td>
+                            <td>{{get_staff(offering.staff_id).username}}</td>
+                            <td>{{offering.semester}}</td>
+                            <td><ol>
+                                {% for student in offering.students %}
+                                    <li>{{student.id}} - {{student.username}}</li>
+                                {% endfor %}
+                            </ol></td>
+                        </tr>
+                    {% endfor %}
+                <tbody>
+            </table>
+    </div>
+
+{% endblock %}

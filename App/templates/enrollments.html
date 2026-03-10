@@ -8,7 +8,7 @@
 {% block content %}
 
     <div class="row">
-      <form class="col s12" method="POST" action="/student-courses">
+      <form class="col s12" method="POST" action="/enrollments">
         
         <div class="row">
           <div class="input-field col s6">
@@ -23,12 +23,12 @@
 
           <div class="input-field col s6">
             <br><br>
-            <select name="course_id" id="course_id" style="border: 1px solid cadetblue">
-            {% for course in courses %}
-                <option value={{course.id}}>{{course.code}} - {{course.title}}</option>
+            <select name="offering_id" id="offering_id" style="border: 1px solid cadetblue">
+            {% for offering in offerings %}
+                <option value={{offering.id}}>{{get_course(offering.course_id).code}} - {{get_course(offering.course_id).title}} by {{get_staff(offering.staff_id).username}} ({{offering.semester}})</option>
             {% endfor %}
             </select>
-            <label for="course_id">Course ID</label> 
+            <label for="offering_id">Offering ID</label> 
           </div>
         </div>
       
@@ -45,14 +45,14 @@
       <table>
         <thead>
           <tr>
-            <th>Student ID</th><th>Course ID</th>
+            <th>Student ID</th><th>Course Offering ID</th>
           </tr>
         </thead>
         <tbody>
           {% for enrollment in enrollments %}
             <tr>
                 <td>{{enrollment.student_id}}</td>
-                <td>{{enrollment.course_id}}</td>
+                <td>{{enrollment.offering_id}}</td>
             </tr>
           {% endfor %}
         <tbody>
