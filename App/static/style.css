@@ -28,14 +28,72 @@
     flex-direction: row;
   }
 
+  .brand-logo {
+    font-size: 24px;
+    font-weight: bold;
+    top: 50px;
+  }
+
 .active1 {
   background-color: darkmagenta;
   color: aqua;
-  border-radius: 5px;
   font-weight: bold;
 }
 
 .active1 a {
   color: aquamarine;
+}
+
+.purple {
+  width: 100vw;
+  height: 25vh;
+}
+
+@media (max-width: 768px) and (max-width: 992px) {
+
+  .purple {
+    line-height: 25px;
+    width: 100vw;
+    height:25vh;
+  }
+
+  .brand-logo {
+    font-size: 18px;
+    top: 20vh;
+  }
+
+  #nav-mobile .left, #nav-mobile .right {
+    position: absolute;
+    display:flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+  }
+  
+}
+
+@media (max-width: 600px) {
+
+  .purple {
+    line-height: 25px;
+    height:50vh;
+    width: fit-content;
+  }
+
+  .brand-logo {
+    font-size: 18px;
+    top: 40vh;
+  }
+
+  #nav-mobile .left, #nav-mobile .right {
+    position: absolute;
+    display:flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+  }
+  
 }
 
