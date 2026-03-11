@@ -13,7 +13,7 @@
         <mxCell id="ciS2AnwyYNhGVRBkwBYj-3" parent="1" style="swimlane;childLayout=stackLayout;horizontal=1;startSize=50;horizontalStack=0;rounded=1;fontSize=14;fontStyle=0;strokeWidth=2;resizeParent=0;resizeLast=1;shadow=0;dashed=0;align=center;arcSize=4;whiteSpace=wrap;html=1;" value="Course&amp;nbsp;" vertex="1">
           <mxGeometry height="146" width="158" x="740" y="220" as="geometry" />
         </mxCell>
-        <mxCell id="ciS2AnwyYNhGVRBkwBYj-4" parent="ciS2AnwyYNhGVRBkwBYj-3" style="align=left;strokeColor=none;fillColor=none;spacingLeft=4;spacingRight=4;fontSize=12;verticalAlign=top;resizable=0;rotatable=0;part=1;html=1;whiteSpace=wrap;" value="+id: int&lt;br&gt;+code: string&lt;br&gt;+title: string&lt;div&gt;+students: Student []&lt;/div&gt;&lt;div&gt;+lecturers: Staff []&lt;/div&gt;" vertex="1">
+        <mxCell id="ciS2AnwyYNhGVRBkwBYj-4" parent="ciS2AnwyYNhGVRBkwBYj-3" style="align=left;strokeColor=none;fillColor=none;spacingLeft=4;spacingRight=4;fontSize=12;verticalAlign=top;resizable=0;rotatable=0;part=1;html=1;whiteSpace=wrap;" value="+id: int&lt;br&gt;+code: string&lt;br&gt;+title: string" vertex="1">
           <mxGeometry height="96" width="158" y="50" as="geometry" />
         </mxCell>
         <mxCell id="ciS2AnwyYNhGVRBkwBYj-5" parent="1" style="swimlane;childLayout=stackLayout;horizontal=1;startSize=50;horizontalStack=0;rounded=1;fontSize=14;fontStyle=0;strokeWidth=2;resizeParent=0;resizeLast=1;shadow=0;dashed=0;align=center;arcSize=4;whiteSpace=wrap;html=1;" value="Staff" vertex="1">
@@ -43,14 +43,14 @@
         <mxCell id="y-7KkqIq5R6Q9jNoo8_g-5" parent="1" style="swimlane;childLayout=stackLayout;horizontal=1;startSize=50;horizontalStack=0;rounded=1;fontSize=14;fontStyle=0;strokeWidth=2;resizeParent=0;resizeLast=1;shadow=0;dashed=0;align=center;arcSize=4;whiteSpace=wrap;html=1;" value="Enrollment" vertex="1">
           <mxGeometry height="120" width="160" x="390" y="70" as="geometry" />
         </mxCell>
-        <mxCell id="y-7KkqIq5R6Q9jNoo8_g-6" parent="y-7KkqIq5R6Q9jNoo8_g-5" style="align=left;strokeColor=none;fillColor=none;spacingLeft=4;spacingRight=4;fontSize=12;verticalAlign=top;resizable=0;rotatable=0;part=1;html=1;whiteSpace=wrap;" value="&lt;div&gt;+student_id&lt;br&gt;+course_id&lt;br&gt;&lt;/div&gt;" vertex="1">
+        <mxCell id="y-7KkqIq5R6Q9jNoo8_g-6" parent="y-7KkqIq5R6Q9jNoo8_g-5" style="align=left;strokeColor=none;fillColor=none;spacingLeft=4;spacingRight=4;fontSize=12;verticalAlign=top;resizable=0;rotatable=0;part=1;html=1;whiteSpace=wrap;" value="&lt;div&gt;+student_id: int&lt;br&gt;+offering_id: int&lt;br&gt;&lt;/div&gt;" vertex="1">
           <mxGeometry height="70" width="160" y="50" as="geometry" />
         </mxCell>
-        <mxCell id="y-7KkqIq5R6Q9jNoo8_g-7" parent="1" style="swimlane;childLayout=stackLayout;horizontal=1;startSize=50;horizontalStack=0;rounded=1;fontSize=14;fontStyle=0;strokeWidth=2;resizeParent=0;resizeLast=1;shadow=0;dashed=0;align=center;arcSize=4;whiteSpace=wrap;html=1;" value="Assignment" vertex="1">
-          <mxGeometry height="120" width="160" x="410" y="300" as="geometry" />
+        <mxCell id="y-7KkqIq5R6Q9jNoo8_g-7" parent="1" style="swimlane;childLayout=stackLayout;horizontal=1;startSize=50;horizontalStack=0;rounded=1;fontSize=14;fontStyle=0;strokeWidth=2;resizeParent=0;resizeLast=1;shadow=0;dashed=0;align=center;arcSize=4;whiteSpace=wrap;html=1;" value="Offering" vertex="1">
+          <mxGeometry height="140" width="150" x="410" y="300" as="geometry" />
         </mxCell>
-        <mxCell id="y-7KkqIq5R6Q9jNoo8_g-8" parent="y-7KkqIq5R6Q9jNoo8_g-7" style="align=left;strokeColor=none;fillColor=none;spacingLeft=4;spacingRight=4;fontSize=12;verticalAlign=top;resizable=0;rotatable=0;part=1;html=1;whiteSpace=wrap;" value="+staff_id&lt;br&gt;+course_id" vertex="1">
-          <mxGeometry height="70" width="160" y="50" as="geometry" />
+        <mxCell id="y-7KkqIq5R6Q9jNoo8_g-8" parent="y-7KkqIq5R6Q9jNoo8_g-7" style="align=left;strokeColor=none;fillColor=none;spacingLeft=4;spacingRight=4;fontSize=12;verticalAlign=top;resizable=0;rotatable=0;part=1;html=1;whiteSpace=wrap;" value="+id&lt;div&gt;+staff_id&lt;br&gt;+course_id&lt;div&gt;+semester: string&lt;br&gt;&lt;div&gt;+students: Student []&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;" vertex="1">
+          <mxGeometry height="90" width="150" y="50" as="geometry" />
         </mxCell>
         <mxCell id="y-7KkqIq5R6Q9jNoo8_g-20" edge="1" parent="1" source="ciS2AnwyYNhGVRBkwBYj-2" style="fontSize=12;html=1;endArrow=ERoneToMany;startArrow=ERzeroToOne;rounded=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" target="y-7KkqIq5R6Q9jNoo8_g-6" value="">
           <mxGeometry height="100" relative="1" width="100" as="geometry">
