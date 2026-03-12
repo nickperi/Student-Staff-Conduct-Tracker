@@ -1,4 +1,6 @@
-
+*, *::before, *::after {
+    box-sizing: border-box;
+}
   .arrow {
     font-size: 24px;
     cursor: pointer;
@@ -23,17 +25,6 @@
     font-size: 36px;
   }
 
-  #nav-mobile {
-    display: flex;
-    flex-direction: row;
-  }
-
-  .brand-logo {
-    font-size: 24px;
-    font-weight: bold;
-    top: 50px;
-  }
-
 .active1 {
   background-color: darkmagenta;
   color: aqua;
@@ -44,17 +35,19 @@
   color: aquamarine;
 }
 
-.purple {
-  width: 100vw;
-  height: 25vh;
-}
-
-@media (max-width: 768px) and (max-width: 992px) {
-
   .purple {
-    line-height: 25px;
-    width: 100vw;
-    height:25vh;
+    width: 100%;
+    height: 25vh;
+    line-height: 20px;
+  }
+
+  .btn {
+    width: auto;
+  }
+
+  .row {
+    margin-left: auto;
+    margin-right: auto;
   }
 
   .brand-logo {
@@ -66,34 +59,9 @@
     position: absolute;
     display:flex;
     flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    gap: 20px;
-  }
-  
-}
-
-@media (max-width: 600px) {
-
-  .purple {
-    line-height: 25px;
-    height:50vh;
-    width: fit-content;
   }
 
-  .brand-logo {
-    font-size: 18px;
-    top: 40vh;
+  #nav-mobile li {
+    margin: 0 10px;
+    padding: 5px 0;
   }
-
-  #nav-mobile .left, #nav-mobile .right {
-    position: absolute;
-    display:flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    gap: 20px;
-  }
-  
-}
-
