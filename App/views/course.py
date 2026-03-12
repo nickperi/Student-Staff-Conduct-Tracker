@@ -7,7 +7,10 @@ from.index import index_views
 from App.controllers import (
     jwt_required,
     add_course,
+    get_staff,
     get_all_courses,
+    get_students_in_course,
+    get_course_offerings,
     get_all_courses_json
 )
 
@@ -16,7 +19,7 @@ course_views = Blueprint('course_views', __name__, template_folder='../templates
 @course_views.route('/courses', methods=['GET'])
 def get_courses_page():
     courses = get_all_courses()
-    return render_template('courses.html', courses=courses)
+    return render_template('courses.html', courses=courses, get_students_in_course=get_students_in_course, get_course_offerings=get_course_offerings, get_staff=get_staff)
 
 @course_views.route('/api/courses', methods=['GET'])
 def get_courses_action():

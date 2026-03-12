@@ -35,7 +35,7 @@
       <table>
         <thead>
           <tr>
-            <th>Course Code</th><th>Course Title</th><th>Students Enrolled</th>
+            <th>Course Code</th><th>Course Title</th> <th>Offerings</th><th>Students Enrolled in all Offerings</th>
           </tr>
         </thead>
         <tbody>
@@ -45,9 +45,15 @@
                 <td>{{course.title}}</td>
 
                 <td><ol>
-                  {% for student in course.students %}
-                    <li>{{student.username}}</li>
-                  {% endfor %}
+                    {% for offering in get_course_offerings(course.id) %}
+                        <li>{{get_staff(offering.staff_id).username}} - {{offering.semester}}</li>
+                    {% endfor %}
+                </ol></td>
+
+                <td><ol>
+                    {% for student in get_students_in_course(course.id) %}
+                        <li>{{student}}</li>
+                    {% endfor %}
                 </ol></td>
 
             </tr>
