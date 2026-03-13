@@ -11,22 +11,31 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>{% block title %}{% endblock %}</title>
 
-    {% set navigation_bar = [('/', 'index', 'Home'), 
-                              ('/staff/'~current_user.id|string(), 'my-profile', current_user.username|string()~"'s Profile"), 
-                              ('/staff', 'add-staff', 'Add Staff'), 
-                              ('/students', 'add-student', 'Add Student'), 
-                              ('/view-students', 'view-students', 'View Students'), 
-                              ('/reviews', 'log-review', 'Log Review'),
-                              ('/courses', 'add-course', 'Add Course'),
-                              ('/enrollments', 'enrollments', 'Enroll Students'),
-                              ('/offerings', 'add-offering', 'Add Course Offering')] -%}
+    {% set navigation_bar = [{'href':'/', 'id': 'index', 'caption': 'Home'}, 
+                              
+                              {'href': '#', 'id': 'staff-menu', 'caption': 'Staff Menu', 'dropdown': [
+                                   {'href': '/staff/'~current_user.id|string(), 'id': 'my-profile', 'caption': current_user.username|string()~"'s Profile"},
+                                   {'href': '/staff', 'id': 'add-staff', 'caption': 'Add Staff'},
+                              ]},
+
+                              {'href':'#', 'id':'student-menu', 'caption':'Student Menu', 'dropdown':[
+                                    {'href': '/students', 'id': 'add-student', 'caption': 'Add Student'},
+                                    {'href': '/view-students', 'id': 'view-students', 'caption': 'View Students'},
+                              ]},
+
+                              {'href': '/reviews', 'id': 'log-review', 'caption': 'Log Review'},
+
+                              {'href':'#', 'id': 'course-menu', 'caption': 'Course Menu', 'dropdown': [
+                                   {'href': '/courses', 'id': 'add-course', 'caption': 'Add Course'},
+                                   {'href': '/enrollments', 'id': 'enrollments', 'caption': 'Enroll Students'},
+                                   {'href': '/offerings', 'id': 'add-offering', 'caption': 'Add Course Offering'}
+                              ]} ] -%}
     {% set active_page = active_page|default('index') -%}
 
   </head>
   <body>
     <nav class="purple">
       <div class="nav-wrapper">
-        <a href="#!" class="brand-logo center">{% block page %}{% endblock %}</a>
         <div class="nav-wrapper">
             <ul id="nav-mobile" class="left">
 
@@ -39,16 +48,30 @@
                   <li class="{{ 'active1' if request.endpoint == 'staff_views.get_staff_page' else '' }}"><a id="add-staff" href="/staff">Add Staff</a></li>
                   <li class="{{ 'active1' if request.endpoint == 'review_views.get_review_page' else '' }}"><a id="log-review" href="/reviews">Log Review</a></li> -->
 
-                  {% for href, id, caption in navigation_bar %}
-                    <li{% if id == active_page %} class="active1"{% endif %}>
-                    <a href="{{ href|e }}">{{ caption|e }}</a></li>
-                  {% endfor %}
+                
+                {% for item in navigation_bar %}
+                  <li class="nav-item {% if item['dropdown'] %}has-submenu{% endif %}">
+                    <a href="{{ item['href'] }}">{{ item['caption'] }}</a>
+                    {% if item['dropdown'] %}
+                      <ul class="submenu">
+                      {% for subitem in item['dropdown'] %}
+                        <li><a href="{{ subitem['href'] }}">{{ subitem['caption'] }}</a></li>
+                      {% endfor %}
+                      </ul>
+                    {% endif %}
+                  </li>
+                {% endfor %}
 
                 {% else %}
                   <li><a href="/">Home</a></li>
                   <li><a href="/static/users">All Users</a></li>
                 {% endif %}
+
             </ul>
+              <a href="#!" class="brand-logo center">{% block page %}{% endblock %}</a>
+            </div>
+        </div>
+
 
             {% if is_authenticated %}
             <ul id="nav-mobile" class="right">
